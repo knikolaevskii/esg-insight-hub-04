@@ -23,7 +23,7 @@ interface CompanyYearBar {
   key: string; // "Company|Year"
   company: string;
   year: number;
-  pctChange: number;
+  pctChange: number; // now: YoY vs previous year
   sector: string;
   colorDark: string;
   colorLight: string;
@@ -32,84 +32,97 @@ interface CompanyYearBar {
 interface CompanySummary {
   company: string;
   sector: string;
-  avg: number | null;
+  avg: number | null; // avg YoY change across available year-pairs
 }
 
 const YoYChangeChart = ({ data }: Props) => {
+  // Keep baseYear only for labeling; bars are YoY (year vs year-1)
   const baseYear = useMemo(() => Math.min(...data.map((d) => d.reporting_year)), [data]);
 
   const { bars, summaries } = useMemo(() => {
-    // Build baselines
-    const baselines = new Map<string, number>();
-    for (const entry of data) {
-      if (entry.reporting_year === baseYear) {
-        const total = getTotal(entry);
-        if (total !== null) baselines.set(entry.company, total);
-      }
-    }
-
-    // Compute pct change for each company/year pair (excluding base year)
-    const changeMap = new Map<string, CompanyYearBar[]>(); // company -> bars
-    const years = [...new Set(data.map((d) => d.reporting_year))].sort().filter((y) => y !== baseYear);
+    // totalsByCompanyYear[company][year] = total emissions
+    const totalsByCompanyYear = new Map<string, Map<number, number>>();
 
     for (const entry of data) {
-      if (entry.reporting_year === baseYear) continue;
-      const bl = baselines.get(entry.company);
-      if (bl == null || bl === 0) continue;
       const total = getTotal(entry);
       if (total === null) continue;
 
       const sector = getCompanySector(entry.company);
       if (!sector) continue;
-      const cfg = SECTOR_CONFIG[sector];
 
-      const pct = Math.round(((total - bl) / bl) * 1000) / 10;
-
-      const list = changeMap.get(entry.company) ?? [];
-      list.push({
-        key: `${entry.company}|${entry.reporting_year}`,
-        company: entry.company,
-        year: entry.reporting_year,
-        pctChange: pct,
-        sector,
-        colorDark: cfg.colorDark,
-        colorLight: cfg.colorLight,
-      });
-      changeMap.set(entry.company, list);
+      const byYear = totalsByCompanyYear.get(entry.company) ?? new Map<number, number>();
+      byYear.set(entry.reporting_year, total);
+      totalsByCompanyYear.set(entry.company, byYear);
     }
 
-    // Compute averages and sort
+    const changeMap = new Map<string, CompanyYearBar[]>(); // company -> bars
+
+    for (const [company, byYear] of totalsByCompanyYear) {
+      const sector = getCompanySector(company);
+      if (!sector) continue;
+      const cfg = SECTOR_CONFIG[sector];
+
+      const yearsSorted = [...byYear.keys()].sort((a, b) => a - b);
+      for (let i = 1; i < yearsSorted.length; i++) {
+        const yr = yearsSorted[i];
+        const prev = yearsSorted[i - 1];
+
+        const curVal = byYear.get(yr);
+        const prevVal = byYear.get(prev);
+
+        if (curVal == null || prevVal == null || prevVal === 0) continue;
+
+        const pct = Math.round(((curVal - prevVal) / prevVal) * 1000) / 10;
+
+        const list = changeMap.get(company) ?? [];
+        list.push({
+          key: `${company}|${yr}`,
+          company,
+          year: yr,
+          pctChange: pct, // YoY change: yr vs (yr-1 available in data)
+          sector,
+          colorDark: cfg.colorDark,
+          colorLight: cfg.colorLight,
+        });
+        changeMap.set(company, list);
+      }
+    }
+
+    // averages for table + sorting
     const sums: CompanySummary[] = [];
     for (const [company, items] of changeMap) {
       const vals = items.map((i) => i.pctChange);
       const avg = vals.length > 0 ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100 : null;
+
       sums.push({
         company,
         sector: items[0].sector,
         avg,
       });
     }
+
     // Sort best (most negative) to worst
     sums.sort((a, b) => (a.avg ?? Infinity) - (b.avg ?? Infinity));
 
-    // Build ordered bar data: for each company, add bars for each year
+    // Ordered bars (not strictly needed for chartData, but kept)
     const orderedBars: (CompanyYearBar & { companyIndex: number })[] = [];
     sums.forEach((s, ci) => {
       const items = changeMap.get(s.company) ?? [];
       items.sort((a, b) => a.year - b.year);
-      for (const item of items) {
-        orderedBars.push({ ...item, companyIndex: ci });
-      }
+      for (const item of items) orderedBars.push({ ...item, companyIndex: ci });
     });
 
     return { bars: orderedBars, summaries: sums };
-  }, [data, baseYear]);
+  }, [data]);
 
-  // Build recharts data: one entry per company with year-keyed values
+  // years shown as bar-series = years that have a previous year (per company),
+  // but we keep global list for consistent legend/series.
   const years = useMemo(() => {
-    const allYears = [...new Set(data.map((d) => d.reporting_year))].sort().filter((y) => y !== baseYear);
-    return allYears;
-  }, [data, baseYear]);
+    const allYears = [...new Set(data.map((d) => d.reporting_year))].sort((a, b) => a - b);
+    // First year has no "previous" baseline, so exclude the earliest overall year
+    const minY = allYears[0];
+    return allYears.filter((y) => y !== minY);
+  }, [data]);
 
   const chartData = useMemo(() => {
     return summaries.map((s) => {
@@ -120,7 +133,7 @@ const YoYChangeChart = ({ data }: Props) => {
         colorDark: companyBars[0]?.colorDark ?? "#888",
       };
       for (const b of companyBars) {
-        entry[`y${b.year}`] = b.pctChange;
+        entry[`y${b.year}`] = b.pctChange; // YoY for that year
       }
       return entry;
     });
@@ -150,7 +163,7 @@ const YoYChangeChart = ({ data }: Props) => {
                     tickFormatter={(v: number) => `${v}%`}
                     tick={{ fontSize: 11 }}
                     label={{
-                      value: `Change vs ${baseYear} (%)`,
+                      value: `YoY Change (%)`,
                       angle: -90,
                       position: "insideLeft",
                       style: {
@@ -171,11 +184,12 @@ const YoYChangeChart = ({ data }: Props) => {
                         >
                           <p className="font-semibold">{d.company}</p>
                           {payload.map((p: any) => {
-                            const yr = String(p.dataKey).replace("y", "");
+                            const yr = Number(String(p.dataKey).replace("y", ""));
                             const val = p.value as number;
+                            const prev = yr - 1;
                             return (
                               <p key={p.dataKey}>
-                                {yr}:{" "}
+                                {yr} vs {prev}:{" "}
                                 <span className="font-medium" style={{ color: val < 0 ? "#16a34a" : "#dc2626" }}>
                                   {val > 0 ? "+" : ""}
                                   {val.toFixed(1)}%
@@ -197,6 +211,7 @@ const YoYChangeChart = ({ data }: Props) => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
+
             {/* Legend */}
             <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
               {years.map((yr, i) => (
