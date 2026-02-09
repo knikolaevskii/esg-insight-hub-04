@@ -1,0 +1,894 @@
+[
+  {
+    "company": "Amazon",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 16830000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 5765000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": false,
+    "primary_target": {
+      "description": "Reach net-zero carbon emissions by 2040 (The Climate Pledge).",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Power operations with 100% renewable energy by 2025.",
+        "target_year": 2025,
+        "pct_reduction": 100.0
+      },
+      {
+        "description": "Deploy 10,000 electric delivery vehicles globally by 2022.",
+        "target_year": 2022,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Scaling renewable energy procurement through utility-scale wind and solar PPAs, initial deployment of Rivian electric delivery vans, investments in The Climate Pledge Fund for low-carbon technologies, and operational efficiency improvements in fulfilment centres.",
+    "data_reliability_notes": "Scope 1 and 2 values from Amazon's 2021 Sustainability Report. No formal third-party assurance statement found for this reporting year. Emissions reported in MMT CO2e and converted to tCO2e."
+  },
+  {
+    "company": "Amazon",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 15320000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 4120000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Reach net-zero carbon emissions by 2040 (The Climate Pledge).",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Power operations with 100% renewable energy by 2025.",
+        "target_year": 2025,
+        "pct_reduction": 100.0
+      },
+      {
+        "description": "Have 100,000 electric delivery vans on the road by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Continued scaling of renewable energy capacity, deployment of over 3,000 Rivian electric vans, investment in carbon removal technologies including direct air capture, Shipment Zero initiative targeting net-zero carbon on all shipments.",
+    "data_reliability_notes": "Scope 1 and 2 values from Amazon's 2022 Sustainability Report. External assurance obtained for carbon and renewable energy data for the first time. Market-based Scope 2 methodology applied."
+  },
+  {
+    "company": "Amazon",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 14270000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 2790000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Reach net-zero carbon emissions by 2040 (The Climate Pledge).",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Match 100% of the electricity consumed by Amazon's global operations with renewable energy.",
+        "target_year": 2025,
+        "pct_reduction": 100.0
+      },
+      {
+        "description": "Have at least 100,000 electric delivery vans on the road.",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Reduce food waste by 50% across U.S. and Europe operations.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      }
+    ],
+    "action_plans": "Amazon focuses on driving efficiency across operations, selecting lower-carbon alternatives for materials and fuels, transitioning to carbon-free electricity via rooftop solar and utility-scale PPAs, engaging suppliers to set decarbonization plans, scaling EV deployment, and investing in carbon removal and nature-based projects.",
+    "data_reliability_notes": "Scope 1 and Scope 2 (market-based) values taken from the report's emissions table in MMT CO2e converted to tCO2e. External assurance referenced. Net-zero target does not specify a base year or explicit percent-reduction."
+  },
+  {
+    "company": "BP",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 35400000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 5200000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner.",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2019
+    },
+    "other_targets": [
+      {
+        "description": "20% reduction in Scope 1 and 2 absolute emissions by 2025 vs 2019 baseline.",
+        "target_year": 2025,
+        "pct_reduction": 20.0
+      },
+      {
+        "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030 vs 2019 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "50% reduction in methane intensity by 2025.",
+        "target_year": 2025,
+        "pct_reduction": 50.0
+      }
+    ],
+    "action_plans": "Implementing energy efficiency measures, electrifying operations, reducing flaring and venting, expanding renewable energy investments, deploying methane detection and measurement technology across upstream assets.",
+    "data_reliability_notes": "Scope 1 and 2 values from bp Sustainability Report 2021. Limited assurance provided by Deloitte. Emissions reported under operational control boundary. 2019 baseline of 54.5 MtCO2e for Scope 1+2 combined."
+  },
+  {
+    "company": "BP",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 33800000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 4900000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner.",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2019
+    },
+    "other_targets": [
+      {
+        "description": "20% reduction in Scope 1 and 2 absolute emissions by 2025 vs 2019 baseline.",
+        "target_year": 2025,
+        "pct_reduction": 20.0
+      },
+      {
+        "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030 vs 2019 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "5% reduction in average lifecycle carbon intensity of sold energy by 2025.",
+        "target_year": 2025,
+        "pct_reduction": 5.0
+      }
+    ],
+    "action_plans": "Increasing bioenergy production, hydrogen projects, EV charging infrastructure expansion, operational emissions reduction through electrification of facilities, and continued methane emissions monitoring improvements.",
+    "data_reliability_notes": "Scope 1 and 2 values from bp Net Zero Ambition Progress Update 2023. Limited assurance by Deloitte. Scope 1+2 combined was approximately 38.7 MtCO2e, representing a 29% reduction vs 2019."
+  },
+  {
+    "company": "BP",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 31900000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 4500000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner.",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2019
+    },
+    "other_targets": [
+      {
+        "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030 vs 2019 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "15-20% reduction in average lifecycle carbon intensity of sold energy by 2030.",
+        "target_year": 2030,
+        "pct_reduction": 17.5
+      },
+      {
+        "description": "Achieve 0.20% methane intensity target under new measurement approach.",
+        "target_year": 2025,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Accelerating transition to integrated energy company, investing in offshore wind, solar, and CCUS, carbon capture and storage projects, biofuels expansion through Archaea Energy, and continued operational emissions reductions through electrification and efficiency.",
+    "data_reliability_notes": "Scope 1 and 2 from bp Net Zero Ambition Progress Update 2024. Limited assurance by Deloitte. Maintained 41% reduction in Scope 1+2 vs 2019 baseline. Aim 3 figures for 2019-2022 restated to correct misstatements in sales data."
+  },
+  {
+    "company": "Coca Cola",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 3680000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 2450000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030 vs 2015 baseline.",
+      "pct_reduction": 25.0,
+      "target_year": 2030,
+      "base_year": 2015
+    },
+    "other_targets": [
+      {
+        "description": "Reduce Scope 3 emissions by 30% per litre of produced beverages by 2030 vs 2019.",
+        "target_year": 2030,
+        "pct_reduction": 30.0
+      },
+      {
+        "description": "Collect and recycle a bottle or can for each one sold by 2030 (World Without Waste).",
+        "target_year": 2030,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Improving energy efficiency in manufacturing facilities, transitioning to renewable electricity through PPAs, sustainable packaging initiatives under World Without Waste, and engaging bottling partners on emissions reduction.",
+    "data_reliability_notes": "Scope 1 and 2 values from Coca-Cola's ESG Report 2021. Limited assurance by EY. Emissions include The Coca-Cola Company and its bottling partners where applicable. SBTi-validated targets."
+  },
+  {
+    "company": "Coca Cola",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 3820000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 2180000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030 vs 2015 baseline.",
+      "pct_reduction": 25.0,
+      "target_year": 2030,
+      "base_year": 2015
+    },
+    "other_targets": [
+      {
+        "description": "Reduce Scope 3 emissions by 30% per litre of produced beverages by 2030 vs 2019.",
+        "target_year": 2030,
+        "pct_reduction": 30.0
+      },
+      {
+        "description": "Use at least 50% recycled material in packaging by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Expanding use of recycled materials in packaging, water stewardship programs, cold drink equipment efficiency improvements, renewable electricity procurement in key markets, and supply chain engagement on Scope 3.",
+    "data_reliability_notes": "Scope 1 and 2 values from Coca-Cola's ESG Report 2022. Limited assurance by EY. Scope 1 increased slightly due to production volume growth, while Scope 2 market-based decreased through renewable energy procurement."
+  },
+  {
+    "company": "Coca Cola",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 3550000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 1920000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030 vs 2015 baseline.",
+      "pct_reduction": 25.0,
+      "target_year": 2030,
+      "base_year": 2015
+    },
+    "other_targets": [
+      {
+        "description": "Reduce Scope 3 emissions by 30% per litre of produced beverages by 2030 vs 2019.",
+        "target_year": 2030,
+        "pct_reduction": 30.0
+      },
+      {
+        "description": "Achieve 100% recyclable packaging globally by 2025.",
+        "target_year": 2025,
+        "pct_reduction": null
+      },
+      {
+        "description": "Use at least 50% recycled material in packaging by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Science-based target validation, renewable energy procurement expansion, circular economy initiatives including refillable packaging pilots, cold drink equipment HFC phase-down, and supplier decarbonization engagement programs.",
+    "data_reliability_notes": "Scope 1 and 2 from Coca-Cola's 2023 ESG Report. Limited assurance by EY. SBTi-validated targets. Consistent target across all three years — no upgrade to net-zero target in this period."
+  },
+  {
+    "company": "ENGIE",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 44500000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 1200000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net Zero Carbon by 2045.",
+      "pct_reduction": null,
+      "target_year": 2045,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Reduce GHG emissions from energy production to 43 Mt CO2eq by 2030 (Scope 1 and 3).",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Carbon intensity of energy production (Scope 1+2) below 110 g CO2eq/kWh by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Complete coal phase-out in Europe by 2025.",
+        "target_year": 2025,
+        "pct_reduction": null
+      },
+      {
+        "description": "Reach 50 GW renewable capacity by 2025.",
+        "target_year": 2025,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Exiting coal activities across continental Europe, investing in renewables and green gases, developing hydrogen infrastructure, expanding battery storage deployment, and pursuing SBTi certification for well-below 2°C trajectory.",
+    "data_reliability_notes": "Scope 1 and 2 from ENGIE's Integrated Report 2021. Limited assurance provided. ENGIE reports carbon intensity metrics alongside absolute values. SBTi well-below 2°C certification obtained in 2020."
+  },
+  {
+    "company": "ENGIE",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 38200000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 980000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net Zero Carbon by 2045.",
+      "pct_reduction": null,
+      "target_year": 2045,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Reduce GHG emissions from energy production to 43 Mt CO2eq by 2030 (Scope 1 and 3).",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Carbon intensity of energy production (Scope 1+2) below 110 g CO2eq/kWh by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "45 Mt CO2 of avoided emissions at customer sites annually from 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "30% reduction in methane emissions by 2030.",
+        "target_year": 2030,
+        "pct_reduction": 30.0
+      }
+    ],
+    "action_plans": "Accelerating coal phase-out, growing solar and wind capacity towards 50 GW target, battery storage deployment, large-scale green hydrogen development, and customer decarbonization services.",
+    "data_reliability_notes": "Scope 1 and 2 from ENGIE's Integrated Report 2022. Limited assurance provided. SBTi well-below 2°C certification upgraded in February 2023. Targets expressed both as absolute values and carbon intensity."
+  },
+  {
+    "company": "ENGIE",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 32100000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 750000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net Zero Carbon by 2045.",
+      "pct_reduction": null,
+      "target_year": 2045,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Reduce GHG emissions from energy production to 43 Mt CO2eq by 2030 (Scope 1 and 3).",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Carbon intensity of energy sales (Scope 1+3) below 153 g CO2eq/kWh by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Reach 80 GW renewable capacity by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Full coal exit for continental Europe by 2025, rest of world by 2027.",
+        "target_year": 2027,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Full coal exit by 2025 in Europe, large-scale green hydrogen projects, district heating decarbonisation, 4 GW average annual renewable commissioning, 10 GW battery storage by 2030, and customer decarbonization with 45 Mt CO2 avoided target.",
+    "data_reliability_notes": "Scope 1 and 2 from ENGIE's Integrated Report 2023. Limited assurance provided. SBTi well-below 2°C certified. Strong reduction trend in Scope 1 driven by coal phase-out and renewables growth."
+  },
+  {
+    "company": "Intel",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 1580000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 2650000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": false,
+    "primary_target": {
+      "description": "Achieve net-zero greenhouse gas emissions across Scope 1 and 2 by 2040.",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "100% renewable electricity across global operations by 2030.",
+        "target_year": 2030,
+        "pct_reduction": 100.0
+      },
+      {
+        "description": "10% reduction in absolute Scope 1 and 2 emissions by 2030 vs 2019.",
+        "target_year": 2030,
+        "pct_reduction": 10.0
+      }
+    ],
+    "action_plans": "Energy efficiency improvements in fabrication facilities, renewable energy procurement, chemical emissions abatement programs for semiconductor manufacturing process gases, and investment in green building certifications.",
+    "data_reliability_notes": "Scope 1 and 2 from Intel's Corporate Responsibility Report 2021. No formal third-party assurance statement identified for this year. Intel's Scope 1 emissions are dominated by process gases (PFCs, NF3) from semiconductor manufacturing."
+  },
+  {
+    "company": "Intel",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 1620000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 2400000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": false,
+    "primary_target": {
+      "description": "Achieve net-zero greenhouse gas emissions across Scope 1 and 2 by 2040.",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "100% renewable electricity across global operations by 2030.",
+        "target_year": 2030,
+        "pct_reduction": 100.0
+      },
+      {
+        "description": "10% reduction in absolute Scope 1 and 2 emissions by 2030 vs 2019.",
+        "target_year": 2030,
+        "pct_reduction": 10.0
+      }
+    ],
+    "action_plans": "Green building certifications, water restoration projects, supply chain engagement on emissions, continued investment in abatement of semiconductor process gas emissions, and renewable energy expansion.",
+    "data_reliability_notes": "Scope 1 and 2 from Intel's Corporate Responsibility Report 2022. No formal third-party assurance. Scope 1 increased slightly due to expanded fab capacity, while Scope 2 market-based decreased through renewable energy procurement."
+  },
+  {
+    "company": "Intel",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 1690000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 2100000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Achieve net-zero greenhouse gas emissions across Scope 1 and 2 by 2040.",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "100% renewable electricity across global operations by 2030.",
+        "target_year": 2030,
+        "pct_reduction": 100.0
+      },
+      {
+        "description": "Reduce Scope 3 emissions by 30% by 2030 vs 2019 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 30.0
+      }
+    ],
+    "action_plans": "RISE strategy implementation, ultra-EUV efficiency gains, 100% renewable electricity goal, advanced process gas abatement technology deployment, supply chain decarbonization engagement, and water restoration exceeding consumption in water-stressed areas.",
+    "data_reliability_notes": "Scope 1 and 2 from Intel's Corporate Responsibility Report 2023. External assurance obtained for the first time. Scope 1 continues to rise due to new fab capacity (process gas emissions) despite abatement investments. Scope 2 market-based declining through renewable procurement."
+  },
+  {
+    "company": "Nestle",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 3650000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 1420000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero greenhouse gas emissions by 2050.",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2018
+    },
+    "other_targets": [
+      {
+        "description": "20% reduction in absolute GHG emissions by 2025 vs 2018 baseline.",
+        "target_year": 2025,
+        "pct_reduction": 20.0
+      },
+      {
+        "description": "50% reduction in absolute GHG emissions by 2030 vs 2018 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      }
+    ],
+    "action_plans": "Regenerative agriculture programs across key sourcing regions, reforestation and landscape restoration, transitioning to renewable energy in factories, dairy decarbonization initiatives, and sustainable sourcing expansion.",
+    "data_reliability_notes": "Scope 1 and 2 from Nestle's ESG Report 2021. Limited assurance by EY. SBTi-approved targets. Emissions cover full value chain under operational control. 2018 baseline used for target tracking."
+  },
+  {
+    "company": "Nestle",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 3480000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 1280000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero greenhouse gas emissions by 2050.",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2018
+    },
+    "other_targets": [
+      {
+        "description": "20% reduction in absolute GHG emissions by 2025 vs 2018 baseline.",
+        "target_year": 2025,
+        "pct_reduction": 20.0
+      },
+      {
+        "description": "50% reduction in absolute GHG emissions by 2030 vs 2018 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "100% deforestation-free primary supply chains by 2025.",
+        "target_year": 2025,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Dairy decarbonisation roadmap with farmer engagement, forest positive strategy, sustainable sourcing expansion, renewable energy transition in manufacturing, and logistics efficiency improvements.",
+    "data_reliability_notes": "Scope 1 and 2 from Nestle's ESG Report 2022. Limited assurance by EY. Consistent methodology with prior year. Steady decline in both Scope 1 and Scope 2 emissions."
+  },
+  {
+    "company": "Nestle",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 3310000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 1100000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero greenhouse gas emissions by 2050.",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2018
+    },
+    "other_targets": [
+      {
+        "description": "50% reduction in absolute GHG emissions by 2030 vs 2018 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "100% renewable electricity in manufacturing by 2025.",
+        "target_year": 2025,
+        "pct_reduction": null
+      },
+      {
+        "description": "Reduce Scope 3 value chain emissions by 20% by 2025 vs 2018.",
+        "target_year": 2025,
+        "pct_reduction": 20.0
+      }
+    ],
+    "action_plans": "Plant-based product expansion, packaging innovation to reduce virgin plastic use, supply chain traceability improvements, regenerative agriculture at scale, and transition to 100% renewable electricity in manufacturing operations.",
+    "data_reliability_notes": "Scope 1 and 2 from Nestle's ESG Report 2023. Limited assurance by EY. SBTi-approved. Consistent downward trend across both scopes. On track for 2025 interim target."
+  },
+  {
+    "company": "SSE",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 7100000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 540000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero for Scope 1 and 2 emissions by 2040.",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Reduce Scope 1 carbon intensity of electricity generated by 80% by 2030 vs 2017/18 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 80.0
+      },
+      {
+        "description": "Reduce absolute Scope 1 and 2 GHG emissions by 72.5% by 2030 vs 2017/18 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 72.5
+      },
+      {
+        "description": "Reduce GHG emissions from products sold by 50% by 2034 vs 2017/18 baseline.",
+        "target_year": 2034,
+        "pct_reduction": 50.0
+      }
+    ],
+    "action_plans": "Investing in offshore wind, flexible generation, and electricity network upgrades. Closure of coal and oil-fired generation. Developing low-carbon thermal alternatives and supporting a just transition for affected communities and workers.",
+    "data_reliability_notes": "Scope 1 and 2 from SSE's Annual Report 2021 (year ending March 2021). Assured by PwC. SSE reports under operational control boundary. SBTi-approved 1.5°C-aligned targets. Reporting year runs April to March."
+  },
+  {
+    "company": "SSE",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 5750000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 490000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero for Scope 1 and 2 emissions by 2040.",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Reduce Scope 1 carbon intensity of electricity generated by 80% by 2030 vs 2017/18 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 80.0
+      },
+      {
+        "description": "Reduce absolute Scope 1 and 2 GHG emissions by 72.5% by 2030 vs 2017/18 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 72.5
+      },
+      {
+        "description": "Engage 50% of suppliers by spend to set science-based targets by 2024.",
+        "target_year": 2024,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Dogger Bank wind farm construction, smart grid investments, green hydrogen pilots at Keadby, Keadby 3 carbon capture power station planning, SF6 leakage reduction strategies in networks, and NZAP Plus investment programme of £18bn to 2027.",
+    "data_reliability_notes": "Scope 1 and 2 from SSE's Annual Report 2022 (year ending March 2022). Assured by PwC. Decrease in Scope 1 driven by reduced thermal output and closure of Deeside power station. 100% of Seabank emissions moved to Scope 3 from October 2021."
+  },
+  {
+    "company": "SSE",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 6080000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 440000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net zero for Scope 1 and 2 emissions by 2040.",
+      "pct_reduction": null,
+      "target_year": 2040,
+      "base_year": null
+    },
+    "other_targets": [
+      {
+        "description": "Reduce Scope 1 carbon intensity of electricity generated by 80% by 2030 vs 2017/18 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 80.0
+      },
+      {
+        "description": "Reduce absolute Scope 1 and 2 GHG emissions by 72.5% by 2030 vs 2017/18 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 72.5
+      },
+      {
+        "description": "Net zero for remaining Scope 3 emissions by 2050.",
+        "target_year": 2050,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Accelerating renewables pipeline, CCUS partnerships including Keadby 3, Just Transition commitments, low-carbon flexible thermal generation with biofuels, SF6 alternative gas rollout in networks, and continued NZAP Plus delivery.",
+    "data_reliability_notes": "Scope 1 and 2 from SSE's Annual Report 2023 (year ending March 2023). Assured by PwC. Scope 1 increased vs prior year due to Triton Power acquisition (Sept 2022) and higher thermal output from market conditions. Overall trajectory remains aligned to targets."
+  },
+  {
+    "company": "Shell",
+    "reporting_year": 2021,
+    "scope1": {
+      "value": 68000000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 9200000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3).",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2016
+    },
+    "other_targets": [
+      {
+        "description": "Halve Scope 1 and 2 absolute emissions by 2030 vs 2016 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "Reduce net carbon intensity of energy products by 6-8% by 2023 vs 2016.",
+        "target_year": 2023,
+        "pct_reduction": null
+      },
+      {
+        "description": "Maintain methane emissions intensity below 0.2% at Shell-operated assets.",
+        "target_year": 2025,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Growing LNG portfolio as transition fuel, investing in biofuels, hydrogen, and EV charging network, launching Powering Progress strategy, carbon capture investments, and nature-based solutions for carbon credits.",
+    "data_reliability_notes": "Scope 1 and 2 from Shell Sustainability Report 2021. Limited assurance by LRQA. Operational control boundary. 2016 baseline for Scope 1+2 targets. Shell's Scope 3 dominates total emissions."
+  },
+  {
+    "company": "Shell",
+    "reporting_year": 2022,
+    "scope1": {
+      "value": 65500000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 8100000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3).",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2016
+    },
+    "other_targets": [
+      {
+        "description": "Halve Scope 1 and 2 absolute emissions by 2030 vs 2016 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "Reduce net carbon intensity of energy products by 9-13% by 2025 vs 2016.",
+        "target_year": 2025,
+        "pct_reduction": null
+      },
+      {
+        "description": "Achieve near-zero methane emissions by end of decade.",
+        "target_year": 2030,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Nature-based solutions, carbon capture projects, expanding renewables and power trading, $5 billion annual investment in low-carbon energy solutions, and participation in Oil and Gas Decarbonization Charter.",
+    "data_reliability_notes": "Scope 1 and 2 from Shell Sustainability Report 2022. Limited assurance by LRQA. Gradual reduction in operational emissions. Net carbon intensity targets updated from 6-8% to 9-13% by 2025."
+  },
+  {
+    "company": "Shell",
+    "reporting_year": 2023,
+    "scope1": {
+      "value": 58000000.0,
+      "unit": "tCO2e"
+    },
+    "scope2_market": {
+      "value": 7300000.0,
+      "unit": "tCO2e"
+    },
+    "assurance": true,
+    "primary_target": {
+      "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3).",
+      "pct_reduction": null,
+      "target_year": 2050,
+      "base_year": 2016
+    },
+    "other_targets": [
+      {
+        "description": "Halve Scope 1 and 2 absolute emissions by 2030 vs 2016 baseline.",
+        "target_year": 2030,
+        "pct_reduction": 50.0
+      },
+      {
+        "description": "Reduce net carbon intensity of energy products by 15-20% by 2030 vs 2016.",
+        "target_year": 2030,
+        "pct_reduction": null
+      },
+      {
+        "description": "Reduce customer emissions from use of oil products by 15-20% by 2030 vs 2021.",
+        "target_year": 2030,
+        "pct_reduction": 17.5
+      },
+      {
+        "description": "Achieve near-zero methane emissions by 2030.",
+        "target_year": 2030,
+        "pct_reduction": null
+      }
+    ],
+    "action_plans": "Powering Progress strategy with $5.6bn invested in low-carbon energy solutions in 2023, integrated gas transition, customer decarbonisation solutions, biofuels and hydrogen scaling, EV charging network expansion, and 49% of R&D budget on decarbonisation projects.",
+    "data_reliability_notes": "Scope 1 and 2 from Shell Sustainability Report 2023. Limited assurance by LRQA. Achieved more than 60% of the 2030 target to halve Scope 1+2 emissions. Met short-term NCI target of 6-8% reduction. Methane intensity maintained below 0.2%."
+  }
+]
