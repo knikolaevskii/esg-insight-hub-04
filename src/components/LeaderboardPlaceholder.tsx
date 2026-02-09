@@ -148,7 +148,7 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
 
       let recommendation: string;
       if (overallScore >= 5.0) recommendation = "Finance";
-      else if (overallScore >= 3.7) recommendation = "Monitor";
+      else if (overallScore >= 3.65) recommendation = "Monitor";
       else recommendation = "Avoid";
 
       return {
