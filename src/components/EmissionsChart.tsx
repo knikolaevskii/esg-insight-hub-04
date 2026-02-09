@@ -22,6 +22,10 @@ const formatValue = (v: number) => {
   return v.toString();
 };
 
+/** Safely read a numeric value, treating null/undefined as null */
+const safeVal = (v: number | null | undefined): number | null =>
+  v != null && isFinite(v) ? v : null;
+
 const EmissionsChart = ({ data }: Props) => {
   const chartData = useMemo(() => {
     const result: {
@@ -31,6 +35,8 @@ const EmissionsChart = ({ data }: Props) => {
       scope2: number;
       colorDark: string;
       colorLight: string;
+      yearCount: number;
+      totalYears: number;
     }[] = [];
 
     for (const [sector, cfg] of Object.entries(SECTOR_CONFIG)) {
@@ -38,10 +44,33 @@ const EmissionsChart = ({ data }: Props) => {
       for (const company of cfg.companies) {
         const entries = data.filter((d) => d.company === company);
         if (entries.length === 0) continue;
+
+        const totalYears = entries.length;
+
+        // Scope 1: average only over years with non-null values
+        const s1Vals = entries
+          .map((e) => safeVal(e.scope1?.value))
+          .filter((v): v is number => v !== null);
         const avgScope1 =
-          entries.reduce((s, e) => s + e.scope1.value, 0) / entries.length;
+          s1Vals.length > 0
+            ? s1Vals.reduce((a, b) => a + b, 0) / s1Vals.length
+            : 0;
+
+        // Scope 2: average only over years with non-null values
+        const s2Vals = entries
+          .map((e) => safeVal(e.scope2_market?.value))
+          .filter((v): v is number => v !== null);
         const avgScope2 =
-          entries.reduce((s, e) => s + e.scope2_market.value, 0) / entries.length;
+          s2Vals.length > 0
+            ? s2Vals.reduce((a, b) => a + b, 0) / s2Vals.length
+            : 0;
+
+        // Skip entirely if both scopes have no data at all
+        if (s1Vals.length === 0 && s2Vals.length === 0) continue;
+
+        // yearCount = max years contributing to either scope
+        const yearCount = Math.max(s1Vals.length, s2Vals.length);
+
         items.push({
           company,
           sector,
@@ -49,16 +78,16 @@ const EmissionsChart = ({ data }: Props) => {
           scope2: Math.round(avgScope2),
           colorDark: cfg.colorDark,
           colorLight: cfg.colorLight,
+          yearCount,
+          totalYears,
         });
       }
-      // Sort descending by total emissions within sector
       items.sort((a, b) => b.scope1 + b.scope2 - (a.scope1 + a.scope2));
       result.push(...items);
     }
     return result;
   }, [data]);
 
-  // Build unique sector entries for the legend
   const sectorLegend = useMemo(
     () =>
       Object.entries(SECTOR_CONFIG).map(([name, cfg]) => ({
@@ -69,11 +98,19 @@ const EmissionsChart = ({ data }: Props) => {
     []
   );
 
+  // Determine total expected years from data
+  const expectedYears = useMemo(
+    () => new Set(data.map((d) => d.reporting_year)).size,
+    [data]
+  );
+
+  const hasPartial = chartData.some((d) => d.yearCount < expectedYears);
+
   return (
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">
-          Average Absolute Emissions (3-Year Mean)
+          Average Absolute Emissions ({expectedYears}-Year Mean)
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -81,7 +118,16 @@ const EmissionsChart = ({ data }: Props) => {
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} barCategoryGap="20%">
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="company" tick={{ fontSize: 12 }} />
+              <XAxis
+                dataKey="company"
+                tick={{ fontSize: 12 }}
+                tickFormatter={(name: string) => {
+                  const item = chartData.find((d) => d.company === name);
+                  return item && item.yearCount < expectedYears
+                    ? `${name} *`
+                    : name;
+                }}
+              />
               <YAxis
                 tickFormatter={formatValue}
                 label={{
@@ -97,22 +143,28 @@ const EmissionsChart = ({ data }: Props) => {
                   value.toLocaleString() + " tCO2e",
                   name === "scope1" ? "Scope 1" : "Scope 2 (Market)",
                 ]}
+                labelFormatter={(label: string) => {
+                  const item = chartData.find((d) => d.company === label);
+                  if (item && item.yearCount < expectedYears) {
+                    return `${label} (avg of ${item.yearCount}/${expectedYears} years)`;
+                  }
+                  return label;
+                }}
                 contentStyle={{
                   borderRadius: 8,
                   border: "1px solid hsl(var(--border))",
                   fontSize: 12,
                 }}
               />
-              {/* Render individual bars per data point using two Bar layers with Cell-like approach via shape */}
               <Bar
                 dataKey="scope1"
                 stackId="a"
                 name="scope1"
                 radius={[0, 0, 0, 0]}
                 fill="#999"
-                // Use shape to apply per-bar color
                 shape={(props: any) => {
                   const item = chartData[props.index];
+                  const isPartial = item && item.yearCount < expectedYears;
                   return (
                     <rect
                       x={props.x}
@@ -121,6 +173,7 @@ const EmissionsChart = ({ data }: Props) => {
                       height={props.height}
                       fill={item?.colorDark ?? "#999"}
                       rx={0}
+                      opacity={isPartial ? 0.6 : 1}
                     />
                   );
                 }}
@@ -133,6 +186,7 @@ const EmissionsChart = ({ data }: Props) => {
                 fill="#ccc"
                 shape={(props: any) => {
                   const item = chartData[props.index];
+                  const isPartial = item && item.yearCount < expectedYears;
                   return (
                     <rect
                       x={props.x}
@@ -142,6 +196,7 @@ const EmissionsChart = ({ data }: Props) => {
                       fill={item?.colorLight ?? "#ccc"}
                       rx={4}
                       ry={4}
+                      opacity={isPartial ? 0.6 : 1}
                     />
                   );
                 }}
@@ -167,6 +222,12 @@ const EmissionsChart = ({ data }: Props) => {
             </div>
           ))}
         </div>
+        {hasPartial && (
+          <p className="text-center text-[11px] text-muted-foreground mt-2">
+            * Average based on fewer than {expectedYears} years of data.
+            Bars appear at reduced opacity.
+          </p>
+        )}
       </CardContent>
     </Card>
   );
