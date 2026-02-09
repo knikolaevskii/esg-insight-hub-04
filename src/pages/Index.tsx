@@ -5,7 +5,19 @@ import YoYChangeChart from "@/components/YoYChangeChart";
 import esgData from "@/data/esg_data.json";
 import type { EsgData } from "@/types/esg";
 
-const data = (esgData as EsgData).companies.flatMap((c) => c.years);
+/** Normalize inconsistent company names in the JSON */
+const COMPANY_ALIASES: Record<string, string> = {
+  "SSE plc": "SSE PLC",
+  "SSE_PLC": "SSE PLC",
+  "Coca-Cola": "Coca Cola",
+};
+
+const data = (esgData as EsgData).companies.flatMap((c) =>
+  c.years.map((y) => ({
+    ...y,
+    company: COMPANY_ALIASES[y.company] ?? y.company,
+  }))
+);
 
 const Index = () => {
   const [mode, setMode] = useState<"overview" | "detailed">("overview");
