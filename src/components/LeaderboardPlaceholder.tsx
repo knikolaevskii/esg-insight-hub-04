@@ -29,7 +29,6 @@ const COLUMNS = [
   "Avg Emissions Score",
   "Emission Trend Score",
   "Realism Score",
-  "Assurance",
   "Overall Score",
   "Recommendation",
 ];
@@ -40,11 +39,9 @@ interface CompanyScore {
   emissionsScore: number;
   trendScore: number;
   realismScore: number;
-  assuredYears: number;
-  totalYears: number;
-  assuranceScore: number;
   overallScore: number;
   recommendation: string;
+  hasPenalty: boolean;
 }
 
 const LeaderboardPlaceholder = ({ data }: Props) => {
@@ -122,11 +119,15 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
         ((maxEmissions - r.avgEmissions) / emissionsRange) * 10;
       const trendScore = ((maxChange - r.pctChange) / changeRange) * 10;
       const realismScore = ((r.avgRealism - 1) / 2) * 10;
-      const assuranceScore =
-        r.totalYears > 0 ? (r.assuredYears / r.totalYears) * 10 : 0;
 
-      const overallScore =
-        emissionsScore * 0.25 + trendScore * 0.35 + realismScore * 0.2 + assuranceScore * 0.2;
+      let overallScore =
+        emissionsScore * 0.2 + trendScore * 0.5 + realismScore * 0.3;
+
+      // Amazon penalty for lacking external assurance in 2021
+      const hasPenalty = r.company === "Amazon";
+      if (hasPenalty) {
+        overallScore = Math.max(0, overallScore - 0.5);
+      }
 
       let recommendation: string;
       if (overallScore >= 6.0) recommendation = "Finance";
@@ -139,11 +140,9 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
         emissionsScore: Math.round(emissionsScore * 10) / 10,
         trendScore: Math.round(trendScore * 10) / 10,
         realismScore: Math.round(realismScore * 10) / 10,
-        assuredYears: r.assuredYears,
-        totalYears: r.totalYears,
-        assuranceScore: Math.round(assuranceScore * 10) / 10,
         overallScore: Math.round(overallScore * 10) / 10,
         recommendation,
+        hasPenalty,
       };
     });
 
@@ -171,7 +170,7 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
           Financing Recommendation Leaderboard
         </CardTitle>
         <CardDescription>
-          Composite scoring — Emissions 25%, Trend 35%, Credibility 20%, Assurance 20%
+          Composite scoring — Emissions 20%, Trend 50%, Realism 30%
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -198,11 +197,8 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
                 <TableCell className="text-center">
                   {r.realismScore.toFixed(1)}
                 </TableCell>
-                <TableCell className="text-center">
-                  {r.assuredYears}/{r.totalYears} ({r.assuranceScore.toFixed(1)})
-                </TableCell>
                 <TableCell className="text-center font-semibold">
-                  {r.overallScore.toFixed(1)}
+                  {r.overallScore.toFixed(1)}{r.hasPenalty && " *"}
                 </TableCell>
                 <TableCell className="text-center">
                   <Badge variant="outline" className={badgeStyle(r.recommendation)}>
@@ -213,6 +209,9 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
             ))}
           </TableBody>
         </Table>
+        <p className="text-[11px] text-muted-foreground mt-3">
+          * Score adjusted: Amazon lacked external assurance in 2021 (-0.5 penalty)
+        </p>
       </CardContent>
     </Card>
   );
