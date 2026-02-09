@@ -1,28 +1,33 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
-  ReferenceLine,
-  ReferenceArea,
+  Cell,
 } from "recharts";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { SECTOR_CONFIG } from "@/config/sectors";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "@/components/ui/table";
+import { SECTOR_CONFIG, getCompanySector } from "@/config/sectors";
 import type { EsgEntry } from "@/types/esg";
 
 interface Props {
   data: EsgEntry[];
 }
 
-/** Safely read a numeric value, treating null/undefined as null */
 const safeVal = (v: number | null | undefined): number | null =>
   v != null && isFinite(v) ? v : null;
 
-/** Get total emissions for an entry, returns null if both scopes are null */
 const getTotal = (entry: EsgEntry): number | null => {
   const s1 = safeVal(entry.scope1?.value);
   const s2 = safeVal(entry.scope2_market?.value);
@@ -30,123 +35,126 @@ const getTotal = (entry: EsgEntry): number | null => {
   return (s1 ?? 0) + (s2 ?? 0);
 };
 
+interface CompanyYearBar {
+  key: string; // "Company|Year"
+  company: string;
+  year: number;
+  pctChange: number;
+  sector: string;
+  colorDark: string;
+  colorLight: string;
+}
+
+interface CompanySummary {
+  company: string;
+  sector: string;
+  avg: number | null;
+}
+
 const YoYChangeChart = ({ data }: Props) => {
-  const years = useMemo(
-    () => [...new Set(data.map((d) => d.reporting_year))].sort(),
+  const baseYear = useMemo(
+    () => Math.min(...data.map((d) => d.reporting_year)),
     [data]
   );
 
-  const baseYear = years[0];
+  const { bars, summaries } = useMemo(() => {
+    // Build baselines
+    const baselines = new Map<string, number>();
+    for (const entry of data) {
+      if (entry.reporting_year === baseYear) {
+        const total = getTotal(entry);
+        if (total !== null) baselines.set(entry.company, total);
+      }
+    }
 
-  const { chartData, companies, minVal, maxVal, partialPoints } = useMemo(() => {
-    const allCompanies: {
-      name: string;
-      sector: string;
-      color: string;
-      dash: string;
-    }[] = [];
-    for (const [sector, cfg] of Object.entries(SECTOR_CONFIG)) {
-      cfg.companies.forEach((c, i) => {
-        if (data.some((d) => d.company === c)) {
-          allCompanies.push({
-            name: c,
-            sector,
-            color: cfg.colorDark,
-            dash: cfg.lineStyles[i] || "",
-          });
-        }
+    // Compute pct change for each company/year pair (excluding base year)
+    const changeMap = new Map<string, CompanyYearBar[]>(); // company -> bars
+    const years = [...new Set(data.map((d) => d.reporting_year))]
+      .sort()
+      .filter((y) => y !== baseYear);
+
+    for (const entry of data) {
+      if (entry.reporting_year === baseYear) continue;
+      const bl = baselines.get(entry.company);
+      if (bl == null || bl === 0) continue;
+      const total = getTotal(entry);
+      if (total === null) continue;
+
+      const sector = getCompanySector(entry.company);
+      if (!sector) continue;
+      const cfg = SECTOR_CONFIG[sector];
+
+      const pct = Math.round(((total - bl) / bl) * 1000) / 10;
+
+      const list = changeMap.get(entry.company) ?? [];
+      list.push({
+        key: `${entry.company}|${entry.reporting_year}`,
+        company: entry.company,
+        year: entry.reporting_year,
+        pctChange: pct,
+        sector,
+        colorDark: cfg.colorDark,
+        colorLight: cfg.colorLight,
+      });
+      changeMap.set(entry.company, list);
+    }
+
+    // Compute averages and sort
+    const sums: CompanySummary[] = [];
+    for (const [company, items] of changeMap) {
+      const vals = items.map((i) => i.pctChange);
+      const avg = vals.length > 0
+        ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
+        : null;
+      sums.push({
+        company,
+        sector: items[0].sector,
+        avg,
       });
     }
+    // Sort best (most negative) to worst
+    sums.sort((a, b) => (a.avg ?? Infinity) - (b.avg ?? Infinity));
 
-    // Compute baseline totals (only from non-null data)
-    const baselines = new Map<string, number>();
-    const partials = new Set<string>(); // "company|year" keys with partial data
-    for (const c of allCompanies) {
-      const entry = data.find(
-        (d) => d.company === c.name && d.reporting_year === baseYear
-      );
-      if (entry) {
-        const total = getTotal(entry);
-        if (total !== null) {
-          baselines.set(c.name, total);
-          // Check if baseline is partial (one scope null)
-          const s1 = safeVal(entry.scope1?.value);
-          const s2 = safeVal(entry.scope2_market?.value);
-          if (s1 === null || s2 === null) {
-            partials.add(`${c.name}|${baseYear}`);
-          }
-        }
+    // Build ordered bar data: for each company, add bars for each year
+    const orderedBars: (CompanyYearBar & { companyIndex: number })[] = [];
+    sums.forEach((s, ci) => {
+      const items = changeMap.get(s.company) ?? [];
+      items.sort((a, b) => a.year - b.year);
+      for (const item of items) {
+        orderedBars.push({ ...item, companyIndex: ci });
       }
-    }
-
-    let min = 0;
-    let max = 0;
-    const rows = years.map((year) => {
-      const row: Record<string, number | string> = { year };
-      for (const c of allCompanies) {
-        const baseline = baselines.get(c.name);
-        const entry = data.find(
-          (d) => d.company === c.name && d.reporting_year === year
-        );
-        if (baseline && entry) {
-          const total = getTotal(entry);
-          if (total !== null) {
-            const pct =
-              Math.round(((total - baseline) / baseline) * 1000) / 10;
-            row[c.name] = pct;
-            if (pct < min) min = pct;
-            if (pct > max) max = pct;
-            // Track partial points
-            const s1 = safeVal(entry.scope1?.value);
-            const s2 = safeVal(entry.scope2_market?.value);
-            if (s1 === null || s2 === null) {
-              partials.add(`${c.name}|${year}`);
-            }
-          }
-        }
-      }
-      return row;
     });
 
-    return {
-      chartData: rows,
-      companies: allCompanies,
-      minVal: min,
-      maxVal: max,
-      partialPoints: partials,
-    };
-  }, [data, years, baseYear]);
+    return { bars: orderedBars, summaries: sums };
+  }, [data, baseYear]);
 
-  const range = maxVal - minVal || 10;
-  const yMin = Math.floor(minVal - range * 0.1);
-  const yMax = Math.ceil(maxVal + range * 0.1);
+  // Build recharts data: one entry per bar
+  const chartData = bars.map((b) => ({
+    barKey: b.key,
+    label: String(b.year),
+    company: b.company,
+    year: b.year,
+    value: b.pctChange,
+    color: b.year === Math.min(...bars.map((x) => x.year)) ? b.colorDark : b.colorLight,
+    sector: b.sector,
+    companyIndex: b.companyIndex,
+  }));
 
-  const sectorGroups = useMemo(() => {
-    const map = new Map<string, typeof companies>();
-    for (const c of companies) {
-      const list = map.get(c.sector) ?? [];
-      list.push(c);
-      map.set(c.sector, list);
-    }
-    return Array.from(map.entries());
-  }, [companies]);
-
-  const [activeSectors, setActiveSectors] = useState<Set<string>>(
-    () => new Set(Object.keys(SECTOR_CONFIG))
-  );
-
-  const toggleSector = (sector: string) => {
-    setActiveSectors((prev) => {
-      const next = new Set(prev);
-      if (next.has(sector)) next.delete(sector);
-      else next.add(sector);
-      return next;
+  // Custom tick for x-axis: show year under each bar, company name above groups
+  const companyLabels = useMemo(() => {
+    const groups: { company: string; startIdx: number; endIdx: number }[] = [];
+    let current = "";
+    let start = 0;
+    chartData.forEach((d, i) => {
+      if (d.company !== current) {
+        if (current) groups.push({ company: current, startIdx: start, endIdx: i - 1 });
+        current = d.company;
+        start = i;
+      }
     });
-  };
-
-  const visibleCompanies = companies.filter((c) => activeSectors.has(c.sector));
-
-  const hasPartialData = partialPoints.size > 0;
+    if (current) groups.push({ company: current, startIdx: start, endIdx: chartData.length - 1 });
+    return groups;
+  }, [chartData]);
 
   return (
     <Card>
@@ -156,152 +164,167 @@ const YoYChangeChart = ({ data }: Props) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {/* Sector filter buttons */}
-        <div className="flex gap-2 mb-4 flex-wrap">
-          {Object.entries(SECTOR_CONFIG).map(([sector, cfg]) => {
-            const active = activeSectors.has(sector);
-            return (
-              <button
-                key={sector}
-                onClick={() => toggleSector(sector)}
-                className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors border"
-                style={{
-                  backgroundColor: active ? cfg.colorDark : "transparent",
-                  color: active ? "#fff" : "hsl(var(--muted-foreground))",
-                  borderColor: active ? cfg.colorDark : "hsl(var(--border))",
-                  opacity: active ? 1 : 0.5,
-                }}
-              >
-                {sector}
-              </button>
-            );
-          })}
-        </div>
-        <div className="h-[400px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <ReferenceArea
-                y1={0}
-                y2={yMax}
-                fill="#fee2e2"
-                fillOpacity={0.5}
-                label={{
-                  value: "Increasing emissions",
-                  position: "insideTopRight",
-                  style: { fontSize: 10, fill: "#dc2626" },
-                }}
-              />
-              <ReferenceArea
-                y1={yMin}
-                y2={0}
-                fill="#dcfce7"
-                fillOpacity={0.5}
-                label={{
-                  value: "Decreasing emissions",
-                  position: "insideBottomRight",
-                  style: { fontSize: 10, fill: "#16a34a" },
-                }}
-              />
-              <ReferenceLine y={0} stroke="hsl(var(--foreground))" strokeWidth={1.5} />
-              <XAxis dataKey="year" tick={{ fontSize: 12 }} />
-              <YAxis
-                domain={[yMin, yMax]}
-                tickFormatter={(v) => `${v}%`}
-                label={{
-                  value: `Change in Emissions vs ${baseYear} (%)`,
-                  angle: -90,
-                  position: "insideLeft",
-                  style: { fontSize: 11, fill: "hsl(var(--muted-foreground))" },
-                }}
-                tick={{ fontSize: 11 }}
-              />
-              <Tooltip
-                formatter={(value: number, name: string) => {
-                  // Find which year this tooltip is for
-                  const suffix = partialPoints.size > 0 ? " †" : "";
-                  return [`${value.toFixed(1)}%`, name];
-                }}
-                labelFormatter={(year: number) => {
-                  // Check if any visible company has partial data for this year
-                  const partialCompanies = visibleCompanies
-                    .filter((c) => partialPoints.has(`${c.name}|${year}`))
-                    .map((c) => c.name);
-                  if (partialCompanies.length > 0) {
-                    return `${year} (partial data for: ${partialCompanies.join(", ")})`;
-                  }
-                  return String(year);
-                }}
-                contentStyle={{
-                  borderRadius: 8,
-                  border: "1px solid hsl(var(--border))",
-                  fontSize: 12,
-                }}
-              />
-              {visibleCompanies.map((c) => (
-                <Line
-                  key={c.name}
-                  type="linear"
-                  dataKey={c.name}
-                  stroke={c.color}
-                  strokeDasharray={c.dash}
-                  strokeWidth={2}
-                  dot={(dotProps: any) => {
-                    const { cx, cy, payload } = dotProps;
-                    if (cx == null || cy == null) return <></>;
-                    const year = payload?.year;
-                    const isPartial = partialPoints.has(`${c.name}|${year}`);
-                    return (
-                      <circle
-                        cx={cx}
-                        cy={cy}
-                        r={isPartial ? 5 : 4}
-                        fill={isPartial ? "transparent" : c.color}
-                        stroke={c.color}
-                        strokeWidth={isPartial ? 2 : 0}
-                      />
-                    );
-                  }}
-                  activeDot={{ r: 6 }}
-                  connectNulls={false}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-        {/* Custom legend */}
-        <div className="flex items-center justify-center gap-8 mt-4 text-xs text-muted-foreground flex-wrap">
-          {sectorGroups.map(([sector, comps]) => (
-            <div key={sector} className="flex flex-col gap-1">
-              <span className="font-semibold uppercase tracking-wide text-[10px]">
-                {sector}
-              </span>
-              <div className="flex gap-3">
-                {comps.map((c) => (
-                  <div key={c.name} className="flex items-center gap-1.5">
-                    <svg width="20" height="3">
-                      <line
-                        x1="0"
-                        y1="1.5"
-                        x2="20"
-                        y2="1.5"
-                        stroke={c.color}
-                        strokeWidth="2"
-                        strokeDasharray={c.dash}
-                      />
-                    </svg>
-                    {c.name}
-                  </div>
-                ))}
-              </div>
+        <div className="flex gap-6 flex-col lg:flex-row">
+          {/* Chart */}
+          <div className="flex-1 min-w-0">
+            <div className="h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} barCategoryGap="15%" barGap={2}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis
+                    dataKey="barKey"
+                    tick={(props: any) => {
+                      const { x, y, payload } = props;
+                      const item = chartData.find((d) => d.barKey === payload.value);
+                      if (!item) return <text />;
+
+                      // Check if this is the first bar of a company group
+                      const group = companyLabels.find((g) => g.company === item.company);
+                      const isFirst =
+                        group && chartData[group.startIdx]?.barKey === payload.value;
+
+                      // Company label width spans entire group
+                      const groupSize = group
+                        ? group.endIdx - group.startIdx + 1
+                        : 1;
+
+                      return (
+                        <g>
+                          <text
+                            x={x}
+                            y={y + 14}
+                            textAnchor="middle"
+                            fontSize={10}
+                            fill="hsl(var(--muted-foreground))"
+                          >
+                            {item.year}
+                          </text>
+                          {isFirst && (
+                            <text
+                              x={x + ((groupSize - 1) * 40) / 2}
+                              y={y + 28}
+                              textAnchor="middle"
+                              fontSize={11}
+                              fontWeight={600}
+                              fill="hsl(var(--foreground))"
+                            >
+                              {item.company}
+                            </text>
+                          )}
+                        </g>
+                      );
+                    }}
+                    interval={0}
+                    height={50}
+                    tickLine={false}
+                    axisLine={{ stroke: "hsl(var(--border))" }}
+                  />
+                  <YAxis
+                    tickFormatter={(v: number) => `${v}%`}
+                    tick={{ fontSize: 11 }}
+                    label={{
+                      value: `Change vs ${baseYear} (%)`,
+                      angle: -90,
+                      position: "insideLeft",
+                      style: {
+                        fontSize: 11,
+                        fill: "hsl(var(--muted-foreground))",
+                      },
+                    }}
+                  />
+                  <Tooltip
+                    cursor={{ fill: "hsl(var(--muted))", opacity: 0.4 }}
+                    content={({ active, payload }) => {
+                      if (!active || !payload?.length) return null;
+                      const d = payload[0].payload;
+                      return (
+                        <div
+                          className="rounded-lg border bg-popover px-3 py-2 text-xs shadow-md"
+                          style={{ borderColor: "hsl(var(--border))" }}
+                        >
+                          <p className="font-semibold">{d.company}</p>
+                          <p className="text-muted-foreground">Year: {d.year}</p>
+                          <p>
+                            Change:{" "}
+                            <span
+                              className="font-medium"
+                              style={{ color: d.value < 0 ? "#16a34a" : "#dc2626" }}
+                            >
+                              {d.value > 0 ? "+" : ""}
+                              {d.value.toFixed(1)}%
+                            </span>
+                          </p>
+                        </div>
+                      );
+                    }}
+                  />
+                  <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                    {chartData.map((entry) => (
+                      <Cell key={entry.barKey} fill={entry.color} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-          ))}
+            {/* Sector legend */}
+            <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
+              {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => (
+                <div key={name} className="flex items-center gap-1.5">
+                  <div className="flex gap-0.5">
+                    <div
+                      className="w-3 h-3 rounded-sm"
+                      style={{ backgroundColor: cfg.colorDark }}
+                    />
+                    <div
+                      className="w-3 h-3 rounded-sm"
+                      style={{ backgroundColor: cfg.colorLight }}
+                    />
+                  </div>
+                  {name}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Summary table */}
+          <div className="lg:w-[320px] shrink-0">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-xs">Company</TableHead>
+                  <TableHead className="text-xs">Sector</TableHead>
+                  <TableHead className="text-xs text-right">Avg Change</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {summaries.map((s) => (
+                  <TableRow key={s.company}>
+                    <TableCell className="py-2 text-xs font-medium">
+                      {s.company}
+                    </TableCell>
+                    <TableCell className="py-2 text-xs text-muted-foreground">
+                      {s.sector}
+                    </TableCell>
+                    <TableCell className="py-2 text-xs text-right font-mono">
+                      {s.avg !== null ? (
+                        <span
+                          style={{
+                            color: s.avg < 0 ? "#16a34a" : "#dc2626",
+                          }}
+                        >
+                          {s.avg > 0 ? "+" : ""}
+                          {s.avg.toFixed(2)}%
+                        </span>
+                      ) : (
+                        "—"
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
-        {hasPartialData && (
-          <p className="text-center text-[11px] text-muted-foreground mt-2">
-            Open circles (○) indicate data points where only one emission scope was available.
-          </p>
-        )}
       </CardContent>
     </Card>
   );
