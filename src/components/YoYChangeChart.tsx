@@ -9,7 +9,6 @@ import {
   CartesianGrid,
   ReferenceLine,
   ReferenceArea,
-  Legend,
 } from "recharts";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { SECTOR_CONFIG } from "@/config/sectors";
@@ -19,6 +18,18 @@ interface Props {
   data: EsgEntry[];
 }
 
+/** Safely read a numeric value, treating null/undefined as null */
+const safeVal = (v: number | null | undefined): number | null =>
+  v != null && isFinite(v) ? v : null;
+
+/** Get total emissions for an entry, returns null if both scopes are null */
+const getTotal = (entry: EsgEntry): number | null => {
+  const s1 = safeVal(entry.scope1?.value);
+  const s2 = safeVal(entry.scope2_market?.value);
+  if (s1 === null && s2 === null) return null;
+  return (s1 ?? 0) + (s2 ?? 0);
+};
+
 const YoYChangeChart = ({ data }: Props) => {
   const years = useMemo(
     () => [...new Set(data.map((d) => d.reporting_year))].sort(),
@@ -27,9 +38,7 @@ const YoYChangeChart = ({ data }: Props) => {
 
   const baseYear = years[0];
 
-  // Build { year, [company]: pctChange } rows
-  const { chartData, companies, minVal, maxVal } = useMemo(() => {
-    // Collect all companies in sector order
+  const { chartData, companies, minVal, maxVal, partialPoints } = useMemo(() => {
     const allCompanies: {
       name: string;
       sector: string;
@@ -49,14 +58,24 @@ const YoYChangeChart = ({ data }: Props) => {
       });
     }
 
-    // Compute baseline totals
+    // Compute baseline totals (only from non-null data)
     const baselines = new Map<string, number>();
+    const partials = new Set<string>(); // "company|year" keys with partial data
     for (const c of allCompanies) {
       const entry = data.find(
         (d) => d.company === c.name && d.reporting_year === baseYear
       );
       if (entry) {
-        baselines.set(c.name, entry.scope1.value + entry.scope2_market.value);
+        const total = getTotal(entry);
+        if (total !== null) {
+          baselines.set(c.name, total);
+          // Check if baseline is partial (one scope null)
+          const s1 = safeVal(entry.scope1?.value);
+          const s2 = safeVal(entry.scope2_market?.value);
+          if (s1 === null || s2 === null) {
+            partials.add(`${c.name}|${baseYear}`);
+          }
+        }
       }
     }
 
@@ -70,26 +89,38 @@ const YoYChangeChart = ({ data }: Props) => {
           (d) => d.company === c.name && d.reporting_year === year
         );
         if (baseline && entry) {
-          const total = entry.scope1.value + entry.scope2_market.value;
-          const pct =
-            Math.round(((total - baseline) / baseline) * 1000) / 10;
-          row[c.name] = pct;
-          if (pct < min) min = pct;
-          if (pct > max) max = pct;
+          const total = getTotal(entry);
+          if (total !== null) {
+            const pct =
+              Math.round(((total - baseline) / baseline) * 1000) / 10;
+            row[c.name] = pct;
+            if (pct < min) min = pct;
+            if (pct > max) max = pct;
+            // Track partial points
+            const s1 = safeVal(entry.scope1?.value);
+            const s2 = safeVal(entry.scope2_market?.value);
+            if (s1 === null || s2 === null) {
+              partials.add(`${c.name}|${year}`);
+            }
+          }
         }
       }
       return row;
     });
 
-    return { chartData: rows, companies: allCompanies, minVal: min, maxVal: max };
+    return {
+      chartData: rows,
+      companies: allCompanies,
+      minVal: min,
+      maxVal: max,
+      partialPoints: partials,
+    };
   }, [data, years, baseYear]);
 
-  // Pad axis by ~10%
   const range = maxVal - minVal || 10;
   const yMin = Math.floor(minVal - range * 0.1);
   const yMax = Math.ceil(maxVal + range * 0.1);
 
-  // Group companies by sector for legend
   const sectorGroups = useMemo(() => {
     const map = new Map<string, typeof companies>();
     for (const c of companies) {
@@ -114,6 +145,8 @@ const YoYChangeChart = ({ data }: Props) => {
   };
 
   const visibleCompanies = companies.filter((c) => activeSectors.has(c.sector));
+
+  const hasPartialData = partialPoints.size > 0;
 
   return (
     <Card>
@@ -148,7 +181,6 @@ const YoYChangeChart = ({ data }: Props) => {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
-              {/* Shaded zones */}
               <ReferenceArea
                 y1={0}
                 y2={yMax}
@@ -185,10 +217,21 @@ const YoYChangeChart = ({ data }: Props) => {
                 tick={{ fontSize: 11 }}
               />
               <Tooltip
-                formatter={(value: number, name: string) => [
-                  `${value.toFixed(1)}%`,
-                  name,
-                ]}
+                formatter={(value: number, name: string) => {
+                  // Find which year this tooltip is for
+                  const suffix = partialPoints.size > 0 ? " †" : "";
+                  return [`${value.toFixed(1)}%`, name];
+                }}
+                labelFormatter={(year: number) => {
+                  // Check if any visible company has partial data for this year
+                  const partialCompanies = visibleCompanies
+                    .filter((c) => partialPoints.has(`${c.name}|${year}`))
+                    .map((c) => c.name);
+                  if (partialCompanies.length > 0) {
+                    return `${year} (partial data for: ${partialCompanies.join(", ")})`;
+                  }
+                  return String(year);
+                }}
                 contentStyle={{
                   borderRadius: 8,
                   border: "1px solid hsl(var(--border))",
@@ -203,14 +246,30 @@ const YoYChangeChart = ({ data }: Props) => {
                   stroke={c.color}
                   strokeDasharray={c.dash}
                   strokeWidth={2}
-                  dot={{ r: 4, fill: c.color }}
+                  dot={(dotProps: any) => {
+                    const { cx, cy, payload } = dotProps;
+                    if (cx == null || cy == null) return <></>;
+                    const year = payload?.year;
+                    const isPartial = partialPoints.has(`${c.name}|${year}`);
+                    return (
+                      <circle
+                        cx={cx}
+                        cy={cy}
+                        r={isPartial ? 5 : 4}
+                        fill={isPartial ? "transparent" : c.color}
+                        stroke={c.color}
+                        strokeWidth={isPartial ? 2 : 0}
+                      />
+                    );
+                  }}
                   activeDot={{ r: 6 }}
+                  connectNulls={false}
                 />
               ))}
             </LineChart>
           </ResponsiveContainer>
         </div>
-        {/* Custom legend grouped by sector */}
+        {/* Custom legend */}
         <div className="flex items-center justify-center gap-8 mt-4 text-xs text-muted-foreground flex-wrap">
           {sectorGroups.map(([sector, comps]) => (
             <div key={sector} className="flex flex-col gap-1">
@@ -238,6 +297,11 @@ const YoYChangeChart = ({ data }: Props) => {
             </div>
           ))}
         </div>
+        {hasPartialData && (
+          <p className="text-center text-[11px] text-muted-foreground mt-2">
+            Open circles (○) indicate data points where only one emission scope was available.
+          </p>
+        )}
       </CardContent>
     </Card>
   );
