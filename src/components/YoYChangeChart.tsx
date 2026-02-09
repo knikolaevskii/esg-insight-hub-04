@@ -104,7 +104,7 @@ const YoYChangeChart = ({ data }: Props) => {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">
-          Relative Emission Change Over Time (vs {baseYear})
+          Relative Emission Change vs {baseYear}
         </CardTitle>
       </CardHeader>
       <CardContent>
