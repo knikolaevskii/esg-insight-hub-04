@@ -24,7 +24,7 @@ const Index = () => {
             <EmissionsChart data={data} />
             <YoYChangeChart data={data} />
             <CredibilityChart data={data} />
-            <LeaderboardPlaceholder />
+            <LeaderboardPlaceholder data={data} />
           </div>
         ) : (
           <div className="flex items-center justify-center h-64">
