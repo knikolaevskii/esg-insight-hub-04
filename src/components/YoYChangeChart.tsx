@@ -129,50 +129,17 @@ const YoYChangeChart = ({ data }: Props) => {
     return { bars: orderedBars, summaries: sums };
   }, [data, baseYear]);
 
-  // Build recharts data with spacer entries between company groups
-  const chartData = useMemo(() => {
-    const result: {
-      barKey: string;
-      label: string;
-      company: string;
-      year: number;
-      value: number | null;
-      color: string;
-      sector: string;
-      companyIndex: number;
-      isSpacer?: boolean;
-    }[] = [];
-    let prevCompany = "";
-    let spacerIdx = 0;
-    for (const b of bars) {
-      if (prevCompany && b.company !== prevCompany) {
-        // Insert spacer entry
-        result.push({
-          barKey: `__spacer_${spacerIdx++}`,
-          label: "",
-          company: "",
-          year: 0,
-          value: null,
-          color: "transparent",
-          sector: "",
-          companyIndex: -1,
-          isSpacer: true,
-        });
-      }
-      result.push({
-        barKey: b.key,
-        label: String(b.year),
-        company: b.company,
-        year: b.year,
-        value: b.pctChange,
-        color: b.colorDark,
-        sector: b.sector,
-        companyIndex: b.companyIndex,
-      });
-      prevCompany = b.company;
-    }
-    return result;
-  }, [bars]);
+  // Build recharts data: one entry per bar
+  const chartData = bars.map((b) => ({
+    barKey: b.key,
+    label: String(b.year),
+    company: b.company,
+    year: b.year,
+    value: b.pctChange,
+    color: b.colorDark,
+    sector: b.sector,
+    companyIndex: b.companyIndex,
+  }));
 
   // Custom tick for x-axis: show year under each bar, company name above groups
   const companyLabels = useMemo(() => {
@@ -180,7 +147,6 @@ const YoYChangeChart = ({ data }: Props) => {
     let current = "";
     let start = 0;
     chartData.forEach((d, i) => {
-      if (d.isSpacer) return;
       if (d.company !== current) {
         if (current) groups.push({ company: current, startIdx: start, endIdx: i - 1 });
         current = d.company;
@@ -190,9 +156,6 @@ const YoYChangeChart = ({ data }: Props) => {
     if (current) groups.push({ company: current, startIdx: start, endIdx: chartData.length - 1 });
     return groups;
   }, [chartData]);
-
-  // Compute a minimum width: ~60px per bar entry ensures spacing
-  const minChartWidth = Math.max(chartData.length * 60, 400);
 
   return (
     <Card>
@@ -205,17 +168,16 @@ const YoYChangeChart = ({ data }: Props) => {
         <div className="flex gap-6 flex-col lg:flex-row">
           {/* Chart */}
           <div className="flex-1 min-w-0">
-            <div className="h-[400px] overflow-x-auto overflow-y-hidden">
-              <div style={{ width: `${minChartWidth}px`, height: "100%" }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData} barCategoryGap="8%" barGap={1}>
+            <div className="h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} barCategoryGap="15%" barGap={2}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
                     dataKey="barKey"
                     tick={(props: any) => {
                       const { x, y, payload } = props;
                       const item = chartData.find((d) => d.barKey === payload.value);
-                      if (!item || item.isSpacer) return <text />;
+                      if (!item) return <text />;
 
                       // Check if this is the first bar of a company group
                       const group = companyLabels.find((g) => g.company === item.company);
@@ -315,7 +277,6 @@ const YoYChangeChart = ({ data }: Props) => {
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
-              </div>
             </div>
             {/* Sector legend */}
             <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
