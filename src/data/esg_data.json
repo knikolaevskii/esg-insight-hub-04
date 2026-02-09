@@ -374,7 +374,7 @@
           "company": "Coca-Cola",
           "reporting_year": 2022,
           "scope1": {
-            "value": 4400000.0,
+            "value": 2400000.0,
             "unit": "tCO2e"
           },
           "scope2_market": {
@@ -425,7 +425,7 @@
           "company": "Coca-Cola",
           "reporting_year": 2023,
           "scope1": {
-            "value": 3550000.0,
+            "value": 1550000.0,
             "unit": "tCO2e"
           },
           "scope2_market": {
