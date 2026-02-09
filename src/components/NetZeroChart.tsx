@@ -66,24 +66,27 @@ const NetZeroChart = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[350px]">
+        <div className="h-[380px]">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} barCategoryGap="20%">
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis
+            <BarChart data={chartData} layout="vertical" barCategoryGap="20%">
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <YAxis
                 dataKey="company"
+                type="category"
                 tick={{ fontSize: 11 }}
                 tickLine={false}
                 axisLine={{ stroke: "hsl(var(--border))" }}
+                width={90}
               />
-              <YAxis
+              <XAxis
+                type="number"
                 domain={[minYear, maxYear]}
                 tick={{ fontSize: 11 }}
                 tickFormatter={(v: number) => String(v)}
                 label={{
                   value: "Target Year",
-                  angle: -90,
-                  position: "insideLeft",
+                  position: "insideBottom",
+                  offset: -2,
                   style: {
                     fontSize: 11,
                     fill: "hsl(var(--muted-foreground))",
@@ -91,13 +94,13 @@ const NetZeroChart = () => {
                 }}
               />
               <ReferenceLine
-                y={2030}
+                x={2030}
                 stroke="hsl(var(--muted-foreground))"
                 strokeDasharray="6 3"
                 strokeWidth={1}
                 label={{
                   value: "2030",
-                  position: "right",
+                  position: "top",
                   fontSize: 10,
                   fill: "hsl(var(--muted-foreground))",
                 }}
@@ -119,7 +122,7 @@ const NetZeroChart = () => {
                   );
                 }}
               />
-              <Bar dataKey="targetYear" name="Target Year" radius={[4, 4, 0, 0]}>
+              <Bar dataKey="targetYear" name="Target Year" radius={[0, 4, 4, 0]}>
                 {chartData.map((row, i) => (
                   <Cell
                     key={i}
