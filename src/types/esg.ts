@@ -6,6 +6,12 @@ export interface EsgTarget {
   scope: string;
 }
 
+export interface Credibility {
+  credibility_score: number;
+  alignment: number;
+  realism: number;
+}
+
 export interface EsgEntry {
   company: string;
   reporting_year: number;
@@ -16,6 +22,7 @@ export interface EsgEntry {
   targets: EsgTarget[];
   action_plans: string;
   source_file: string;
+  credibility?: Credibility;
 }
 
 export interface EsgCompany {
