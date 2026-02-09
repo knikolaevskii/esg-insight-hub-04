@@ -18,9 +18,27 @@
           "assurance": false,
           "assurance_notes": "No external assurance mentioned in the 2021 report.",
           "targets": [
-            { "description": "Net-zero carbon emissions across our business by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "All scopes" },
-            { "description": "Power operations with 100% renewable energy by 2025", "pct_reduction": 100.0, "target_year": 2025, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Make 50% of Amazon shipments net-zero carbon by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": null, "scope": "All scopes" }
+            {
+              "description": "Net-zero carbon emissions across our business by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Power operations with 100% renewable energy by 2025",
+              "pct_reduction": 100.0,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Make 50% of Amazon shipments net-zero carbon by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "All scopes"
+            }
           ],
           "action_plans": "Scaling renewable energy procurement through utility-scale wind and solar PPAs, initial deployment of Rivian electric delivery vans, investments in The Climate Pledge Fund for low-carbon technologies, and operational efficiency improvements in fulfilment centres.",
           "source_file": "reports/Amazon/2021/annual_report.pdf"
@@ -28,15 +46,39 @@
         {
           "company": "Amazon",
           "reporting_year": 2022,
-          "scope1": { "value": 13400000.0, "unit": "tCO2e" },
+          "scope1": { "value": 11400000.0, "unit": "tCO2e" },
           "scope2_market": { "value": 2890000.0, "unit": "tCO2e" },
           "assurance": true,
           "assurance_notes": "Assurance of carbon and renewable energy data obtained.",
           "targets": [
-            { "description": "Net-zero carbon emissions across Amazon by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "All scopes" },
-            { "description": "100,000 Rivian electric delivery vans on the road by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Fleet" },
-            { "description": "Power operations with 100% renewable energy by 2030", "pct_reduction": 100.0, "target_year": 2030, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Reduce food waste by 50% across U.S. and Europe operations by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": null, "scope": "Food waste" }
+            {
+              "description": "Net-zero carbon emissions across Amazon by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "100,000 Rivian electric delivery vans on the road by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Fleet"
+            },
+            {
+              "description": "Power operations with 100% renewable energy by 2030",
+              "pct_reduction": 100.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Reduce food waste by 50% across U.S. and Europe operations by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Food waste"
+            }
           ],
           "action_plans": "Continued scaling of renewable energy capacity, deployment of over 3,000 Rivian electric vans, investment in carbon removal technologies including direct air capture, Shipment Zero initiative targeting net-zero carbon on all shipments.",
           "source_file": "reports/Amazon/2022/annual_report.pdf"
@@ -44,15 +86,39 @@
         {
           "company": "Amazon",
           "reporting_year": 2023,
-          "scope1": { "value": 14270000.0, "unit": "tCO2e" },
+          "scope1": { "value": 10070000.0, "unit": "tCO2e" },
           "scope2_market": { "value": 2790000.0, "unit": "tCO2e" },
           "assurance": true,
           "assurance_notes": "External assurance for carbon and renewable energy data referenced.",
           "targets": [
-            { "description": "Net-zero carbon emissions by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "All scopes" },
-            { "description": "Match 100% of electricity consumed with renewable energy", "pct_reduction": 100.0, "target_year": 2025, "base_year": null, "scope": "Renewable energy" },
-            { "description": "At least 100,000 electric delivery vans on the road by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Fleet" },
-            { "description": "Reduce food waste by 50% across U.S. and Europe operations", "pct_reduction": 50.0, "target_year": 2030, "base_year": null, "scope": "Food waste" }
+            {
+              "description": "Net-zero carbon emissions by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Match 100% of electricity consumed with renewable energy",
+              "pct_reduction": 100.0,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "At least 100,000 electric delivery vans on the road by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Fleet"
+            },
+            {
+              "description": "Reduce food waste by 50% across U.S. and Europe operations",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Food waste"
+            }
           ],
           "action_plans": "Driving efficiency across operations, selecting lower-carbon alternatives for materials and fuels, transitioning to carbon-free electricity via rooftop solar and utility-scale PPAs, engaging suppliers to set decarbonization plans, scaling EV deployment, and investing in carbon removal and nature-based projects.",
           "source_file": "reports/Amazon/2023/annual_report.pdf"
@@ -70,10 +136,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by Deloitte.",
           "targets": [
-            { "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2019, "scope": "Scope 1+2" },
-            { "description": "20% reduction in Scope 1 and 2 absolute emissions by 2025", "pct_reduction": 20.0, "target_year": 2025, "base_year": 2019, "scope": "Scope 1+2" },
-            { "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2019, "scope": "Scope 1+2" },
-            { "description": "50% reduction in methane intensity by 2025", "pct_reduction": 50.0, "target_year": 2025, "base_year": null, "scope": "Methane" }
+            {
+              "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2019,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "20% reduction in Scope 1 and 2 absolute emissions by 2025",
+              "pct_reduction": 20.0,
+              "target_year": 2025,
+              "base_year": 2019,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2019,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "50% reduction in methane intensity by 2025",
+              "pct_reduction": 50.0,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Methane"
+            }
           ],
           "action_plans": "Implementing energy efficiency measures, electrifying operations, reducing flaring and venting, expanding renewable energy investments, deploying methane detection and measurement technology across upstream assets.",
           "source_file": "reports/BP/2021/annual_report.pdf"
@@ -86,10 +176,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by Deloitte.",
           "targets": [
-            { "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2019, "scope": "Scope 1+2" },
-            { "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2019, "scope": "Scope 1+2" },
-            { "description": "5% reduction in average lifecycle carbon intensity of sold energy by 2025", "pct_reduction": 5.0, "target_year": 2025, "base_year": 2019, "scope": "Scope 3" },
-            { "description": "Develop 50GW of renewable generating capacity by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Renewable energy" }
+            {
+              "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2019,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2019,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "5% reduction in average lifecycle carbon intensity of sold energy by 2025",
+              "pct_reduction": 5.0,
+              "target_year": 2025,
+              "base_year": 2019,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Develop 50GW of renewable generating capacity by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Renewable energy"
+            }
           ],
           "action_plans": "Increasing bioenergy production, hydrogen projects, EV charging infrastructure expansion, operational emissions reduction through electrification of facilities, and continued methane emissions monitoring improvements.",
           "source_file": "reports/BP/2022/annual_report.pdf"
@@ -102,10 +216,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by Deloitte.",
           "targets": [
-            { "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2019, "scope": "Scope 1+2" },
-            { "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2019, "scope": "Scope 1+2" },
-            { "description": "15-20% reduction in average lifecycle carbon intensity of sold energy by 2030", "pct_reduction": 17.5, "target_year": 2030, "base_year": 2019, "scope": "Scope 3" },
-            { "description": "Achieve 0.20% methane intensity target under new measurement approach", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Methane" }
+            {
+              "description": "Net zero across operations (Scope 1 and 2) by 2050 or sooner",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2019,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "50% reduction in Scope 1 and 2 absolute emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2019,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "15-20% reduction in average lifecycle carbon intensity of sold energy by 2030",
+              "pct_reduction": 17.5,
+              "target_year": 2030,
+              "base_year": 2019,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Achieve 0.20% methane intensity target under new measurement approach",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Methane"
+            }
           ],
           "action_plans": "Accelerating transition to integrated energy company, investing in offshore wind, solar, and CCUS, carbon capture and storage projects, biofuels expansion, and continued operational emissions reductions through electrification and efficiency.",
           "source_file": "reports/BP/2023/annual_report.pdf"
@@ -123,10 +261,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
-            { "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030", "pct_reduction": 25.0, "target_year": 2030, "base_year": 2015, "scope": "Scope 1+2" },
-            { "description": "Net zero carbon emissions by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": null, "scope": "All scopes" },
-            { "description": "Make 100% of packaging recyclable globally by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Packaging" },
-            { "description": "Use at least 50% recycled content in packaging by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": null, "scope": "Packaging" }
+            {
+              "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030",
+              "pct_reduction": 25.0,
+              "target_year": 2030,
+              "base_year": 2015,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Net zero carbon emissions by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Make 100% of packaging recyclable globally by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Packaging"
+            },
+            {
+              "description": "Use at least 50% recycled content in packaging by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Packaging"
+            }
           ],
           "action_plans": "Improving energy efficiency in manufacturing facilities, transitioning to renewable electricity through PPAs, sustainable packaging initiatives under World Without Waste, and engaging bottling partners on emissions reduction.",
           "source_file": "reports/Coca Cola/2021/annual_report.pdf"
@@ -139,10 +301,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
-            { "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030", "pct_reduction": 25.0, "target_year": 2030, "base_year": 2015, "scope": "Scope 1+2" },
-            { "description": "Net zero emissions by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": null, "scope": "All scopes" },
-            { "description": "Use at least 50% recycled content in packaging by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": null, "scope": "Packaging" },
-            { "description": "Collect and recycle a bottle or can for each one sold by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Packaging" }
+            {
+              "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030",
+              "pct_reduction": 25.0,
+              "target_year": 2030,
+              "base_year": 2015,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Net zero emissions by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Use at least 50% recycled content in packaging by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Packaging"
+            },
+            {
+              "description": "Collect and recycle a bottle or can for each one sold by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Packaging"
+            }
           ],
           "action_plans": "Expanding use of recycled materials in packaging, water stewardship programs, cold drink equipment efficiency improvements, renewable electricity procurement in key markets, and supply chain engagement on Scope 3.",
           "source_file": "reports/Coca Cola/2022/annual_report.pdf"
@@ -155,10 +341,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
-            { "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030", "pct_reduction": 25.0, "target_year": 2030, "base_year": 2015, "scope": "Scope 1+2" },
-            { "description": "Net zero emissions by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": null, "scope": "All scopes" },
-            { "description": "Achieve 100% recyclable packaging globally", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Packaging" },
-            { "description": "Reduce use of virgin plastic from non-renewable sources by 3 million metric tons cumulatively by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Packaging" }
+            {
+              "description": "25% reduction in absolute Scope 1 and 2 emissions by 2030",
+              "pct_reduction": 25.0,
+              "target_year": 2030,
+              "base_year": 2015,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Net zero emissions by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Achieve 100% recyclable packaging globally",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Packaging"
+            },
+            {
+              "description": "Reduce use of virgin plastic from non-renewable sources by 3 million metric tons cumulatively by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Packaging"
+            }
           ],
           "action_plans": "Science-based target validation, renewable energy procurement expansion, circular economy initiatives including refillable packaging pilots, cold drink equipment HFC phase-down, and supplier decarbonization engagement programs.",
           "source_file": "reports/Coca Cola/2023/annual_report.pdf"
@@ -176,11 +386,41 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided. SBTi well-below 2°C certification obtained in 2020.",
           "targets": [
-            { "description": "Net Zero Carbon by 2045", "pct_reduction": 100.0, "target_year": 2045, "base_year": null, "scope": "All scopes" },
-            { "description": "Reduce GHG emissions from energy production to 43 Mt CO2eq by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Scope 1+3" },
-            { "description": "50 GW of renewable energy capacity by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Complete coal phase-out in Europe by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Coal" },
-            { "description": "Carbon intensity of energy production (Scope 1+2) below 110 g CO2eq/kWh by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Scope 1+2" }
+            {
+              "description": "Net Zero Carbon by 2045",
+              "pct_reduction": 100.0,
+              "target_year": 2045,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Reduce GHG emissions from energy production to 43 Mt CO2eq by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Scope 1+3"
+            },
+            {
+              "description": "50 GW of renewable energy capacity by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Complete coal phase-out in Europe by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Coal"
+            },
+            {
+              "description": "Carbon intensity of energy production (Scope 1+2) below 110 g CO2eq/kWh by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Scope 1+2"
+            }
           ],
           "action_plans": "Exiting coal activities across continental Europe, investing in renewables and green gases, developing hydrogen infrastructure, expanding battery storage deployment, and pursuing SBTi certification.",
           "source_file": "reports/ENGIE/2021/annual_report.pdf"
@@ -193,11 +433,41 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided. SBTi well-below 2°C certification upgraded in February 2023.",
           "targets": [
-            { "description": "Net Zero Carbon by 2045", "pct_reduction": 100.0, "target_year": 2045, "base_year": null, "scope": "All scopes" },
-            { "description": "Reduce GHG emissions from energy production to 43 Mt CO2eq by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Scope 1+3" },
-            { "description": "45 Mt CO2 of avoided emissions at customer sites annually from 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Customer" },
-            { "description": "30% reduction in methane emissions by 2030", "pct_reduction": 30.0, "target_year": 2030, "base_year": null, "scope": "Methane" },
-            { "description": "Coal phase-out by 2025 in Europe and by 2027 worldwide", "pct_reduction": null, "target_year": 2027, "base_year": null, "scope": "Coal" }
+            {
+              "description": "Net Zero Carbon by 2045",
+              "pct_reduction": 100.0,
+              "target_year": 2045,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Reduce GHG emissions from energy production to 43 Mt CO2eq by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Scope 1+3"
+            },
+            {
+              "description": "45 Mt CO2 of avoided emissions at customer sites annually from 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Customer"
+            },
+            {
+              "description": "30% reduction in methane emissions by 2030",
+              "pct_reduction": 30.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Methane"
+            },
+            {
+              "description": "Coal phase-out by 2025 in Europe and by 2027 worldwide",
+              "pct_reduction": null,
+              "target_year": 2027,
+              "base_year": null,
+              "scope": "Coal"
+            }
           ],
           "action_plans": "Accelerating coal phase-out, growing solar and wind capacity towards 50 GW target, battery storage deployment, large-scale green hydrogen development, and customer decarbonization services.",
           "source_file": "reports/ENGIE/2022/annual_report.pdf"
@@ -210,11 +480,41 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided. SBTi well-below 2°C certified.",
           "targets": [
-            { "description": "Net Zero Carbon by 2045", "pct_reduction": 100.0, "target_year": 2045, "base_year": null, "scope": "All scopes" },
-            { "description": "80 GW renewable capacity by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Full coal exit for continental Europe by 2025, rest of world by 2027", "pct_reduction": null, "target_year": 2027, "base_year": null, "scope": "Coal" },
-            { "description": "10 GW of battery storage capacity by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Energy storage" },
-            { "description": "Avoid 45 Mt of CO2 emissions per year by 2030 through customer solutions", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Customer" }
+            {
+              "description": "Net Zero Carbon by 2045",
+              "pct_reduction": 100.0,
+              "target_year": 2045,
+              "base_year": null,
+              "scope": "All scopes"
+            },
+            {
+              "description": "80 GW renewable capacity by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Full coal exit for continental Europe by 2025, rest of world by 2027",
+              "pct_reduction": null,
+              "target_year": 2027,
+              "base_year": null,
+              "scope": "Coal"
+            },
+            {
+              "description": "10 GW of battery storage capacity by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Energy storage"
+            },
+            {
+              "description": "Avoid 45 Mt of CO2 emissions per year by 2030 through customer solutions",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Customer"
+            }
           ],
           "action_plans": "Full coal exit by 2025 in Europe, large-scale green hydrogen projects, district heating decarbonisation, 4 GW average annual renewable commissioning, 10 GW battery storage by 2030, and customer decarbonization with 45 Mt CO2 avoided target.",
           "source_file": "reports/ENGIE/2023/annual_report.pdf"
@@ -232,9 +532,27 @@
           "assurance": false,
           "assurance_notes": "No formal third-party assurance identified for this year.",
           "targets": [
-            { "description": "Net-zero greenhouse gas emissions (Scope 1 and 2) by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "Scope 1+2" },
-            { "description": "100% renewable electricity across global operations by 2030", "pct_reduction": 100.0, "target_year": 2030, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Achieve net positive water use by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Water" }
+            {
+              "description": "Net-zero greenhouse gas emissions (Scope 1 and 2) by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "100% renewable electricity across global operations by 2030",
+              "pct_reduction": 100.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Achieve net positive water use by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Water"
+            }
           ],
           "action_plans": "Energy efficiency improvements in fabrication facilities, renewable energy procurement, chemical emissions abatement programs for semiconductor manufacturing process gases, and investment in green building certifications.",
           "source_file": "reports/Intel/2021/annual_report.pdf"
@@ -247,10 +565,34 @@
           "assurance": false,
           "assurance_notes": "No formal third-party assurance identified.",
           "targets": [
-            { "description": "Achieve net-zero greenhouse gas emissions (Scope 1 and 2) by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "Scope 1+2" },
-            { "description": "100% renewable electricity globally by 2030", "pct_reduction": 100.0, "target_year": 2030, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Reduce Scope 3 GHG supply chain emissions by 30% by 2030", "pct_reduction": 30.0, "target_year": 2030, "base_year": null, "scope": "Scope 3" },
-            { "description": "Conserve 4 billion kWh of energy cumulatively by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Energy efficiency" }
+            {
+              "description": "Achieve net-zero greenhouse gas emissions (Scope 1 and 2) by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "100% renewable electricity globally by 2030",
+              "pct_reduction": 100.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Reduce Scope 3 GHG supply chain emissions by 30% by 2030",
+              "pct_reduction": 30.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Conserve 4 billion kWh of energy cumulatively by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Energy efficiency"
+            }
           ],
           "action_plans": "Green building certifications, water restoration projects, supply chain engagement on emissions, continued investment in abatement of semiconductor process gas emissions, and renewable energy expansion.",
           "source_file": "reports/Intel/2022/annual_report.pdf"
@@ -263,10 +605,34 @@
           "assurance": true,
           "assurance_notes": "External assurance obtained for the first time.",
           "targets": [
-            { "description": "Achieve net-zero GHG emissions (Scope 1 and 2) by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "Scope 1+2" },
-            { "description": "Achieve net-zero upstream Scope 3 GHG emissions by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": null, "scope": "Scope 3" },
-            { "description": "100% renewable electricity globally by 2030", "pct_reduction": 100.0, "target_year": 2030, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Reduce Scope 3 supply chain emissions by 30% by 2030", "pct_reduction": 30.0, "target_year": 2030, "base_year": null, "scope": "Scope 3" }
+            {
+              "description": "Achieve net-zero GHG emissions (Scope 1 and 2) by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Achieve net-zero upstream Scope 3 GHG emissions by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": null,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "100% renewable electricity globally by 2030",
+              "pct_reduction": 100.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Reduce Scope 3 supply chain emissions by 30% by 2030",
+              "pct_reduction": 30.0,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Scope 3"
+            }
           ],
           "action_plans": "RISE strategy implementation, ultra-EUV efficiency gains, 100% renewable electricity goal, advanced process gas abatement technology deployment, supply chain decarbonization engagement, and water restoration exceeding consumption in water-stressed areas.",
           "source_file": "reports/Intel/2023/annual_report.pdf"
@@ -284,11 +650,41 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY. SBTi-approved targets.",
           "targets": [
-            { "description": "Net zero greenhouse gas emissions by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2018, "scope": "All scopes" },
-            { "description": "20% reduction in absolute GHG emissions by 2025", "pct_reduction": 20.0, "target_year": 2025, "base_year": 2018, "scope": "All scopes" },
-            { "description": "50% reduction in absolute GHG emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2018, "scope": "All scopes" },
-            { "description": "100% renewable electricity at all sites by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Renewable energy" },
-            { "description": "100% deforestation-free primary supply chains by end-2022", "pct_reduction": null, "target_year": 2022, "base_year": null, "scope": "Supply chain" }
+            {
+              "description": "Net zero greenhouse gas emissions by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "20% reduction in absolute GHG emissions by 2025",
+              "pct_reduction": 20.0,
+              "target_year": 2025,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "50% reduction in absolute GHG emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "100% renewable electricity at all sites by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "100% deforestation-free primary supply chains by end-2022",
+              "pct_reduction": null,
+              "target_year": 2022,
+              "base_year": null,
+              "scope": "Supply chain"
+            }
           ],
           "action_plans": "Regenerative agriculture programs across key sourcing regions, reforestation and landscape restoration, transitioning to renewable energy in factories, dairy decarbonization initiatives, and sustainable sourcing expansion.",
           "source_file": "reports/Nestle/2021/annual_report.pdf"
@@ -301,10 +697,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
-            { "description": "Net zero by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2018, "scope": "All scopes" },
-            { "description": "20% reduction in absolute GHG emissions by 2025", "pct_reduction": 20.0, "target_year": 2025, "base_year": 2018, "scope": "All scopes" },
-            { "description": "50% reduction in absolute GHG emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2018, "scope": "All scopes" },
-            { "description": "Source 20% of key ingredients through regenerative agriculture by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Supply chain" }
+            {
+              "description": "Net zero by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "20% reduction in absolute GHG emissions by 2025",
+              "pct_reduction": 20.0,
+              "target_year": 2025,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "50% reduction in absolute GHG emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Source 20% of key ingredients through regenerative agriculture by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Supply chain"
+            }
           ],
           "action_plans": "Dairy decarbonisation roadmap with farmer engagement, forest positive strategy, sustainable sourcing expansion, renewable energy transition in manufacturing, and logistics efficiency improvements.",
           "source_file": "reports/Nestle/2022/annual_report.pdf"
@@ -317,10 +737,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY. SBTi-approved.",
           "targets": [
-            { "description": "Net zero by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2018, "scope": "All scopes" },
-            { "description": "50% reduction in absolute GHG emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2018, "scope": "All scopes" },
-            { "description": "100% renewable electricity by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Renewable energy" },
-            { "description": "Design above 95% of plastic packaging for recycling by 2025", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Packaging" }
+            {
+              "description": "Net zero by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "50% reduction in absolute GHG emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "All scopes"
+            },
+            {
+              "description": "100% renewable electricity by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Renewable energy"
+            },
+            {
+              "description": "Design above 95% of plastic packaging for recycling by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Packaging"
+            }
           ],
           "action_plans": "Plant-based product expansion, packaging innovation to reduce virgin plastic use, supply chain traceability improvements, regenerative agriculture at scale, and transition to 100% renewable electricity in manufacturing operations.",
           "source_file": "reports/Nestle/2023/annual_report.pdf"
@@ -338,10 +782,34 @@
           "assurance": true,
           "assurance_notes": "Assured by PwC. SBTi-approved 1.5°C-aligned targets.",
           "targets": [
-            { "description": "Net zero for Scope 1 and 2 emissions by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "Scope 1+2" },
-            { "description": "Reduce Scope 1 carbon intensity by 80% by 2030", "pct_reduction": 80.0, "target_year": 2030, "base_year": 2018, "scope": "Scope 1" },
-            { "description": "Reduce absolute Scope 1 and 2 emissions by 72.5% by 2030", "pct_reduction": 72.5, "target_year": 2030, "base_year": 2018, "scope": "Scope 1+2" },
-            { "description": "Treble renewable energy output by 2030 compared to 2017/18", "pct_reduction": null, "target_year": 2030, "base_year": 2018, "scope": "Renewable energy" }
+            {
+              "description": "Net zero for Scope 1 and 2 emissions by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Reduce Scope 1 carbon intensity by 80% by 2030",
+              "pct_reduction": 80.0,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "Scope 1"
+            },
+            {
+              "description": "Reduce absolute Scope 1 and 2 emissions by 72.5% by 2030",
+              "pct_reduction": 72.5,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Treble renewable energy output by 2030 compared to 2017/18",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "Renewable energy"
+            }
           ],
           "action_plans": "Investing in offshore wind, flexible generation, and electricity network upgrades. Closure of coal and oil-fired generation. Developing low-carbon thermal alternatives and supporting a just transition.",
           "source_file": "reports/SSE/2021/annual_report.pdf"
@@ -354,10 +822,34 @@
           "assurance": true,
           "assurance_notes": "Assured by PwC.",
           "targets": [
-            { "description": "Net zero for Scope 1 and 2 emissions by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "Scope 1+2" },
-            { "description": "Net zero for remaining Scope 3 emissions by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": null, "scope": "Scope 3" },
-            { "description": "Reduce absolute Scope 1 and 2 emissions by 72.5% by 2030", "pct_reduction": 72.5, "target_year": 2030, "base_year": 2018, "scope": "Scope 1+2" },
-            { "description": "Engage 50% of suppliers by spend to set a science-based target by 2024", "pct_reduction": null, "target_year": 2024, "base_year": null, "scope": "Supply chain" }
+            {
+              "description": "Net zero for Scope 1 and 2 emissions by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Net zero for remaining Scope 3 emissions by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": null,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Reduce absolute Scope 1 and 2 emissions by 72.5% by 2030",
+              "pct_reduction": 72.5,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Engage 50% of suppliers by spend to set a science-based target by 2024",
+              "pct_reduction": null,
+              "target_year": 2024,
+              "base_year": null,
+              "scope": "Supply chain"
+            }
           ],
           "action_plans": "Dogger Bank wind farm construction, smart grid investments, green hydrogen pilots at Keadby, Keadby 3 carbon capture power station planning, SF6 leakage reduction, and NZAP Plus investment programme of £18bn to 2027.",
           "source_file": "reports/SSE/2022/annual_report.pdf"
@@ -370,10 +862,34 @@
           "assurance": true,
           "assurance_notes": "Assured by PwC. Scope 1 increased due to Triton Power acquisition.",
           "targets": [
-            { "description": "Net zero for Scope 1 and 2 emissions by 2040", "pct_reduction": 100.0, "target_year": 2040, "base_year": null, "scope": "Scope 1+2" },
-            { "description": "Net zero for remaining Scope 3 emissions by 2050", "pct_reduction": 100.0, "target_year": 2050, "base_year": null, "scope": "Scope 3" },
-            { "description": "Reduce absolute Scope 1 and 2 emissions by 72.5% by 2030", "pct_reduction": 72.5, "target_year": 2030, "base_year": 2018, "scope": "Scope 1+2" },
-            { "description": "Reduce GHG emissions from products sold by 50% by 2034", "pct_reduction": 50.0, "target_year": 2034, "base_year": 2018, "scope": "Scope 3" }
+            {
+              "description": "Net zero for Scope 1 and 2 emissions by 2040",
+              "pct_reduction": 100.0,
+              "target_year": 2040,
+              "base_year": null,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Net zero for remaining Scope 3 emissions by 2050",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": null,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Reduce absolute Scope 1 and 2 emissions by 72.5% by 2030",
+              "pct_reduction": 72.5,
+              "target_year": 2030,
+              "base_year": 2018,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Reduce GHG emissions from products sold by 50% by 2034",
+              "pct_reduction": 50.0,
+              "target_year": 2034,
+              "base_year": 2018,
+              "scope": "Scope 3"
+            }
           ],
           "action_plans": "Accelerating renewables pipeline, CCUS partnerships including Keadby 3, Just Transition commitments, low-carbon flexible thermal generation with biofuels, SF6 alternative gas rollout in networks, and continued NZAP Plus delivery.",
           "source_file": "reports/SSE/2023/annual_report.pdf"
@@ -391,10 +907,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance by LRQA. Operational control boundary.",
           "targets": [
-            { "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3)", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2016, "scope": "All scopes" },
-            { "description": "Halve Scope 1 and 2 absolute emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2016, "scope": "Scope 1+2" },
-            { "description": "Reduce net carbon intensity of energy products by 6-8% by 2023", "pct_reduction": null, "target_year": 2023, "base_year": 2016, "scope": "Scope 3" },
-            { "description": "Maintain methane emissions intensity below 0.2%", "pct_reduction": null, "target_year": 2025, "base_year": null, "scope": "Methane" }
+            {
+              "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3)",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2016,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Halve Scope 1 and 2 absolute emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2016,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Reduce net carbon intensity of energy products by 6-8% by 2023",
+              "pct_reduction": null,
+              "target_year": 2023,
+              "base_year": 2016,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Maintain methane emissions intensity below 0.2%",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": null,
+              "scope": "Methane"
+            }
           ],
           "action_plans": "Growing LNG portfolio as transition fuel, investing in biofuels, hydrogen, and EV charging network, launching Powering Progress strategy, carbon capture investments, and nature-based solutions.",
           "source_file": "reports/Shell/2021/annual_report.pdf"
@@ -407,10 +947,34 @@
           "assurance": true,
           "assurance_notes": "Limited assurance by LRQA.",
           "targets": [
-            { "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3)", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2016, "scope": "All scopes" },
-            { "description": "Halve Scope 1 and 2 absolute emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2016, "scope": "Scope 1+2" },
-            { "description": "Reduce net carbon intensity of energy products by 9-13% by 2025", "pct_reduction": null, "target_year": 2025, "base_year": 2016, "scope": "Scope 3" },
-            { "description": "Achieve near-zero methane emissions by end of decade", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Methane" }
+            {
+              "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3)",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2016,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Halve Scope 1 and 2 absolute emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2016,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Reduce net carbon intensity of energy products by 9-13% by 2025",
+              "pct_reduction": null,
+              "target_year": 2025,
+              "base_year": 2016,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Achieve near-zero methane emissions by end of decade",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Methane"
+            }
           ],
           "action_plans": "Nature-based solutions, carbon capture projects, expanding renewables and power trading, $5 billion annual investment in low-carbon energy solutions, and participation in Oil and Gas Decarbonization Charter.",
           "source_file": "reports/Shell/2022/annual_report.pdf"
@@ -423,11 +987,41 @@
           "assurance": true,
           "assurance_notes": "Limited assurance by LRQA. Achieved more than 60% of 2030 target to halve Scope 1+2.",
           "targets": [
-            { "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3)", "pct_reduction": 100.0, "target_year": 2050, "base_year": 2016, "scope": "All scopes" },
-            { "description": "Halve Scope 1 and 2 absolute emissions by 2030", "pct_reduction": 50.0, "target_year": 2030, "base_year": 2016, "scope": "Scope 1+2" },
-            { "description": "Reduce net carbon intensity of energy products by 15-20% by 2030", "pct_reduction": null, "target_year": 2030, "base_year": 2016, "scope": "Scope 3" },
-            { "description": "Achieve near-zero methane emissions by 2030", "pct_reduction": null, "target_year": 2030, "base_year": null, "scope": "Methane" },
-            { "description": "Reduce customer emissions from use of oil products by 15-20% by 2030", "pct_reduction": 17.5, "target_year": 2030, "base_year": 2021, "scope": "Scope 3" }
+            {
+              "description": "Net-zero emissions by 2050 (Scope 1, 2 and 3)",
+              "pct_reduction": 100.0,
+              "target_year": 2050,
+              "base_year": 2016,
+              "scope": "All scopes"
+            },
+            {
+              "description": "Halve Scope 1 and 2 absolute emissions by 2030",
+              "pct_reduction": 50.0,
+              "target_year": 2030,
+              "base_year": 2016,
+              "scope": "Scope 1+2"
+            },
+            {
+              "description": "Reduce net carbon intensity of energy products by 15-20% by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": 2016,
+              "scope": "Scope 3"
+            },
+            {
+              "description": "Achieve near-zero methane emissions by 2030",
+              "pct_reduction": null,
+              "target_year": 2030,
+              "base_year": null,
+              "scope": "Methane"
+            },
+            {
+              "description": "Reduce customer emissions from use of oil products by 15-20% by 2030",
+              "pct_reduction": 17.5,
+              "target_year": 2030,
+              "base_year": 2021,
+              "scope": "Scope 3"
+            }
           ],
           "action_plans": "Powering Progress strategy with $5.6bn invested in low-carbon energy solutions in 2023, integrated gas transition, customer decarbonisation solutions, biofuels and hydrogen scaling, EV charging network expansion, and 49% of R&D budget on decarbonisation projects.",
           "source_file": "reports/Shell/2023/annual_report.pdf"
