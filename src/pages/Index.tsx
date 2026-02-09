@@ -4,11 +4,11 @@ import EmissionsChart from "@/components/EmissionsChart";
 import YoYChangeChart from "@/components/YoYChangeChart";
 import CredibilityChart from "@/components/CredibilityChart";
 import LeaderboardPlaceholder from "@/components/LeaderboardPlaceholder";
+import AbsoluteEmissionsSection from "@/components/detailed/AbsoluteEmissionsSection";
+import RelativeChangeSection from "@/components/detailed/RelativeChangeSection";
+import CredibilityHeatmapSection from "@/components/detailed/CredibilityHeatmapSection";
 import esgData from "@/data/esg_data.json";
 import type { EsgData } from "@/types/esg";
-
-/** Normalize inconsistent company names in the JSON */
-/** No aliases needed — names in the JSON match sector config exactly */
 
 const data = (esgData as EsgData).companies.flatMap((c) => c.years);
 
@@ -27,10 +27,10 @@ const Index = () => {
             <LeaderboardPlaceholder data={data} />
           </div>
         ) : (
-          <div className="flex items-center justify-center h-64">
-            <p className="text-lg text-muted-foreground">
-              Detailed Report — coming soon
-            </p>
+          <div className="grid gap-8">
+            <AbsoluteEmissionsSection data={data} />
+            <RelativeChangeSection data={data} />
+            <CredibilityHeatmapSection data={data} />
           </div>
         )}
       </main>
