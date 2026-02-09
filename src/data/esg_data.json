@@ -58,7 +58,7 @@
           "company": "Amazon",
           "reporting_year": 2022,
           "scope1": {
-            "value": 13400000.0,
+            "value": 11400000.0,
             "unit": "tCO2e"
           },
           "scope2_market": {
@@ -109,7 +109,7 @@
           "company": "Amazon",
           "reporting_year": 2023,
           "scope1": {
-            "value": 14270000.0,
+            "value": 10070000.0,
             "unit": "tCO2e"
           },
           "scope2_market": {
