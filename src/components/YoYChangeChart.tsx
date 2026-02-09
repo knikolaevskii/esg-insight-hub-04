@@ -33,7 +33,6 @@ interface CompanySummary {
   company: string;
   sector: string;
   avg: number | null; // avg YoY change across available year-pairs
-  trend: number | null; // 2023 YoY change
 }
 
 const YoYChangeChart = ({ data }: Props) => {
@@ -93,16 +92,12 @@ const YoYChangeChart = ({ data }: Props) => {
     const sums: CompanySummary[] = [];
     for (const [company, items] of changeMap) {
       const yoy2023 = items.find((i) => i.year === 2023)?.pctChange ?? null;
-      const trend = yoy2023 !== null ? Math.round(yoy2023 * 100) / 100 : null;
-
-      const vals = items.map((i) => i.pctChange);
-      const avg = vals.length > 0 ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100 : null;
+      const avg = yoy2023 !== null ? Math.round(yoy2023 * 100) / 100 : null;
 
       sums.push({
         company,
         sector: items[0].sector,
         avg,
-        trend,
       });
     }
 
@@ -264,8 +259,8 @@ const YoYChangeChart = ({ data }: Props) => {
                       )}
                     </TableCell>
                     <TableCell className="py-2 text-center">
-                      {s.trend !== null &&
-                        (s.trend < 0 ? (
+                      {s.avg !== null &&
+                        (s.avg < 0 ? (
                           <TrendingDown className="w-4 h-4 text-green-600 inline-block" />
                         ) : (
                           <TrendingUp className="w-4 h-4 text-red-600 inline-block" />
