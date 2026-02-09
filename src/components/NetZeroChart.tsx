@@ -1,30 +1,16 @@
 import { useMemo } from "react";
 import {
-  ComposedChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-  ReferenceLine,
-  Customized,
-} from "recharts";
-import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { SECTOR_CONFIG } from "@/config/sectors";
 import esgData from "@/data/esg_data.json";
 import type { EsgData } from "@/types/esg";
 
-/**
- * Derive net-zero target year from the JSON data.
- * Pick the target with the latest target_year whose description
- * contains "net zero" or "net-zero".
- */
 function getNetZeroTargets(): Record<string, number | null> {
   const data = esgData as EsgData;
   const result: Record<string, number | null> = {};
@@ -44,36 +30,42 @@ function getNetZeroTargets(): Record<string, number | null> {
   return result;
 }
 
-interface ChartRow {
+function getAmbitionLabel(year: number | null): { text: string; className: string } {
+  if (year == null) return { text: "None", className: "bg-red-100 text-red-700 border-red-200" };
+  if (year <= 2040) return { text: "Ambitious", className: "bg-green-100 text-green-700 border-green-200" };
+  if (year <= 2045) return { text: "Moderate", className: "bg-amber-100 text-amber-700 border-amber-200" };
+  return { text: "Standard", className: "bg-gray-100 text-gray-600 border-gray-200" };
+}
+
+interface Row {
   company: string;
-  sector: string;
   targetYear: number | null;
-  colorDark: string;
+  sectorColor: string;
 }
 
 const NetZeroChart = () => {
-  const { chartData, minYear, maxYear } = useMemo(() => {
+  const rows = useMemo(() => {
     const targets = getNetZeroTargets();
-    const rows: ChartRow[] = [];
+    const items: Row[] = [];
 
-    for (const [sector, cfg] of Object.entries(SECTOR_CONFIG)) {
+    for (const [, cfg] of Object.entries(SECTOR_CONFIG)) {
       for (const company of cfg.companies) {
-        rows.push({
+        items.push({
           company,
-          sector,
           targetYear: targets[company] ?? null,
-          colorDark: cfg.colorDark,
+          sectorColor: cfg.colorDark,
         });
       }
     }
 
-    const years = rows
-      .map((r) => r.targetYear)
-      .filter((y): y is number => y != null);
-    const min = Math.min(...years) - 3;
-    const max = Math.max(...years) + 3;
+    items.sort((a, b) => {
+      if (a.targetYear == null && b.targetYear == null) return 0;
+      if (a.targetYear == null) return 1;
+      if (b.targetYear == null) return -1;
+      return a.targetYear - b.targetYear;
+    });
 
-    return { chartData: rows, minYear: min, maxYear: max };
+    return items;
   }, []);
 
   return (
@@ -81,151 +73,44 @@ const NetZeroChart = () => {
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">Net-Zero Target Year</CardTitle>
         <CardDescription>
-          Declared net-zero carbon emissions target year per company
+          Declared net-zero target year per company, sorted by ambition
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[380px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart
-              data={chartData}
-              layout="vertical"
-              margin={{ top: 10, right: 50, bottom: 20, left: 10 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-              <YAxis
-                dataKey="company"
-                type="category"
-                tick={{ fontSize: 11 }}
-                tickLine={false}
-                axisLine={{ stroke: "hsl(var(--border))" }}
-                width={90}
-              />
-              <XAxis
-                type="number"
-                domain={[minYear, maxYear]}
-                tick={{ fontSize: 11 }}
-                tickFormatter={(v: number) => String(v)}
-                label={{
-                  value: "Target Year",
-                  position: "insideBottom",
-                  offset: -5,
-                  style: {
-                    fontSize: 11,
-                    fill: "hsl(var(--muted-foreground))",
-                  },
-                }}
-              />
-              <ReferenceLine
-                x={2050}
-                stroke="hsl(var(--muted-foreground))"
-                strokeDasharray="6 3"
-                strokeWidth={1}
-                label={{
-                  value: "Paris Agreement",
-                  position: "top",
-                  fontSize: 10,
-                  fill: "hsl(var(--muted-foreground))",
-                }}
-              />
-              <Tooltip
-                cursor={false}
-                content={({ active, payload }) => {
-                  if (!active || !payload?.length) return null;
-                  const d = payload[0]?.payload as ChartRow | undefined;
-                  if (!d) return null;
-                  return (
-                    <div className="rounded-lg border bg-popover px-3 py-2 text-xs shadow-md">
-                      <p className="font-semibold">{d.company}</p>
-                      <p className="text-muted-foreground">{d.sector}</p>
-                      <p>
-                        Net-zero target:{" "}
-                        {d.targetYear ? d.targetYear : "Not declared"}
-                      </p>
-                    </div>
-                  );
-                }}
-              />
-              {/* Custom lollipop rendering */}
-              <Customized
-                component={(props: any) => {
-                  const { yAxisMap, xAxisMap } = props;
-                  const yAxis = yAxisMap && Object.values(yAxisMap)[0] as any;
-                  const xAxis = xAxisMap && Object.values(xAxisMap)[0] as any;
-                  if (!yAxis || !xAxis) return null;
-
-                  const scale = xAxis.scale;
-                  const bandScale = yAxis.scale;
-                  const bandwidth = yAxis.bandSize || 30;
-
-                  return (
-                    <g>
-                      {chartData.map((row, i) => {
-                        const cy = (bandScale(row.company) ?? 0) + bandwidth / 2;
-                        const xStart = scale(minYear);
-
-                        if (row.targetYear == null) {
-                          // "Not declared" text
-                          const xMid = scale((minYear + maxYear) / 2);
-                          return (
-                            <text
-                              key={i}
-                              x={xMid}
-                              y={cy}
-                              textAnchor="middle"
-                              dominantBaseline="central"
-                              fontSize={11}
-                              fill="hsl(var(--muted-foreground))"
-                              fontStyle="italic"
-                            >
-                              Not declared
-                            </text>
-                          );
-                        }
-
-                        const cx = scale(row.targetYear);
-                        return (
-                          <g key={i}>
-                            {/* Lollipop stick */}
-                            <line
-                              x1={xStart}
-                              y1={cy}
-                              x2={cx}
-                              y2={cy}
-                              stroke={row.colorDark}
-                              strokeWidth={2}
-                              strokeOpacity={0.4}
-                            />
-                            {/* Dot */}
-                            <circle
-                              cx={cx}
-                              cy={cy}
-                              r={7}
-                              fill={row.colorDark}
-                            />
-                            {/* Year label */}
-                            <text
-                              x={cx + 12}
-                              y={cy}
-                              dominantBaseline="central"
-                              fontSize={11}
-                              fontWeight={600}
-                              fill="hsl(var(--foreground))"
-                            >
-                              {row.targetYear}
-                            </text>
-                          </g>
-                        );
-                      })}
-                    </g>
-                  );
-                }}
-              />
-            </ComposedChart>
-          </ResponsiveContainer>
+        <div className="divide-y divide-border">
+          {rows.map((row) => {
+            const ambition = getAmbitionLabel(row.targetYear);
+            return (
+              <div
+                key={row.company}
+                className="flex items-center justify-between py-2.5 px-1"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: row.sectorColor }}
+                  />
+                  <span className="text-sm font-medium">{row.company}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span
+                    className="text-lg font-bold tabular-nums"
+                    style={{ color: row.targetYear ? row.sectorColor : "hsl(var(--muted-foreground))" }}
+                  >
+                    {row.targetYear ?? "—"}
+                  </span>
+                  <Badge
+                    variant="outline"
+                    className={`text-[10px] px-2 py-0 leading-5 ${ambition.className}`}
+                  >
+                    {ambition.text}
+                  </Badge>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Legend */}
         <div className="flex items-center justify-center gap-6 mt-4 text-xs text-muted-foreground flex-wrap">
           {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => (
             <div key={name} className="flex items-center gap-1.5">
@@ -236,9 +121,6 @@ const NetZeroChart = () => {
               {name}
             </div>
           ))}
-          <div className="flex items-center gap-1.5 italic">
-            Not declared = no net-zero target identified
-          </div>
         </div>
       </CardContent>
     </Card>
