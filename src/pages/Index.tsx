@@ -3,6 +3,7 @@ import DashboardHeader from "@/components/DashboardHeader";
 import EmissionsChart from "@/components/EmissionsChart";
 import YoYChangeChart from "@/components/YoYChangeChart";
 import CredibilityChart from "@/components/CredibilityChart";
+import NetZeroChart from "@/components/NetZeroChart";
 import LeaderboardPlaceholder from "@/components/LeaderboardPlaceholder";
 import AbsoluteEmissionsSection from "@/components/detailed/AbsoluteEmissionsSection";
 import RelativeChangeSection from "@/components/detailed/RelativeChangeSection";
@@ -24,6 +25,7 @@ const Index = () => {
             <EmissionsChart data={data} />
             <YoYChangeChart data={data} />
             <CredibilityChart data={data} />
+            <NetZeroChart />
             <LeaderboardPlaceholder data={data} />
           </div>
         ) : (
