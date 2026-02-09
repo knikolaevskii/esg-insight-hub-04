@@ -28,7 +28,7 @@ interface ChartRow {
   company: string;
   sector: string;
   avgAlignment: number;
-  avgRealism: number;
+  avgCredibility: number;
   colorDark: string;
   colorLight: string;
 }
@@ -66,15 +66,15 @@ const CredibilityChart = ({ data }: Props) => {
         const avgAlignment =
           entries.reduce((s, e) => s + e.credibility!.alignment, 0) /
           entries.length;
-        const avgRealism =
-          entries.reduce((s, e) => s + e.credibility!.realism, 0) /
+        const avgCredibility =
+          entries.reduce((s, e) => s + e.credibility!.credibility_score, 0) /
           entries.length;
 
         result.push({
           company,
           sector,
           avgAlignment: Math.round(avgAlignment * 100) / 100,
-          avgRealism: Math.round(avgRealism * 100) / 100,
+          avgCredibility: Math.round(avgCredibility * 100) / 100,
           colorDark: cfg.colorDark,
           colorLight: cfg.colorLight,
         });
@@ -88,7 +88,7 @@ const CredibilityChart = ({ data }: Props) => {
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">Credibility Assessment</CardTitle>
         <CardDescription>
-          Average Alignment &amp; Realism scores across all reporting years
+          Average Alignment &amp; Credibility scores across all reporting years
           (scale 1–3)
         </CardDescription>
       </CardHeader>
@@ -162,7 +162,7 @@ const CredibilityChart = ({ data }: Props) => {
                       <p className="font-semibold">{d.company}</p>
                       <p className="text-muted-foreground">{d.sector}</p>
                       <p>Alignment: {d.avgAlignment.toFixed(2)}</p>
-                      <p>Realism: {d.avgRealism.toFixed(2)}</p>
+                      <p>Credibility: {d.avgCredibility.toFixed(2)}</p>
                     </div>
                   );
                 }}
@@ -173,9 +173,9 @@ const CredibilityChart = ({ data }: Props) => {
                   <Cell key={`align-${i}`} fill={row.colorDark} />
                 ))}
               </Bar>
-              <Bar dataKey="avgRealism" name="Realism" radius={[3, 3, 0, 0]}>
+              <Bar dataKey="avgCredibility" name="Credibility Score" radius={[3, 3, 0, 0]}>
                 {chartData.map((row, i) => (
-                  <Cell key={`real-${i}`} fill={row.colorLight} />
+                  <Cell key={`cred-${i}`} fill={row.colorLight} />
                 ))}
               </Bar>
             </BarChart>
@@ -190,7 +190,7 @@ const CredibilityChart = ({ data }: Props) => {
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: chartData[0]?.colorLight ?? "#aaa" }} />
-            Realism
+            Credibility Score
           </div>
         </div>
       </CardContent>
