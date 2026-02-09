@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Cell,
-  ReferenceLine,
+  Customized,
 } from "recharts";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
@@ -260,16 +260,44 @@ const YoYChangeChart = ({ data }: Props) => {
                     }}
                   />
                   {/* Dashed separator lines between company groups */}
-                  {companyLabels.slice(1).map((group) => (
-                    <ReferenceLine
-                      key={`sep-${group.company}`}
-                      x={chartData[group.startIdx]?.barKey}
-                      stroke="hsl(var(--border))"
-                      strokeDasharray="4 4"
-                      strokeWidth={1}
-                      ifOverflow="extendDomain"
-                    />
-                  ))}
+                  <Customized
+                    component={({ xAxisMap, yAxisMap }: any) => {
+                      if (!xAxisMap || !yAxisMap) return null;
+                      const xAxis = Object.values(xAxisMap)[0] as any;
+                      const yAxis = Object.values(yAxisMap)[0] as any;
+                      if (!xAxis?.bandSize || !yAxis) return null;
+                      const bandSize = xAxis.bandSize;
+                      const y1 = yAxis.y;
+                      const y2 = yAxis.y + yAxis.height;
+                      return (
+                        <g>
+                          {companyLabels.slice(1).map((group) => {
+                            const prevGroup = companyLabels[companyLabels.indexOf(group) - 1];
+                            if (!prevGroup) return null;
+                            const lastBarKey = chartData[prevGroup.endIdx]?.barKey;
+                            const firstBarKey = chartData[group.startIdx]?.barKey;
+                            const lastX = xAxis.scale(lastBarKey);
+                            const firstX = xAxis.scale(firstBarKey);
+                            if (lastX == null || firstX == null) return null;
+                            const midX = lastX + bandSize / 2 + (firstX - lastX - bandSize) / 2 + bandSize / 2;
+                            const xPos = (lastX + bandSize + firstX) / 2;
+                            return (
+                              <line
+                                key={`sep-${group.company}`}
+                                x1={xPos}
+                                x2={xPos}
+                                y1={y1}
+                                y2={y2}
+                                stroke="#d1d5db"
+                                strokeDasharray="4 4"
+                                strokeWidth={1}
+                              />
+                            );
+                          })}
+                        </g>
+                      );
+                    }}
+                  />
                   <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                     {chartData.map((entry) => (
                       <Cell key={entry.barKey} fill={entry.color} />
