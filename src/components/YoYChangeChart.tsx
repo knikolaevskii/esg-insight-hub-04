@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   LineChart,
   Line,
@@ -100,6 +100,21 @@ const YoYChangeChart = ({ data }: Props) => {
     return Array.from(map.entries());
   }, [companies]);
 
+  const [activeSectors, setActiveSectors] = useState<Set<string>>(
+    () => new Set(Object.keys(SECTOR_CONFIG))
+  );
+
+  const toggleSector = (sector: string) => {
+    setActiveSectors((prev) => {
+      const next = new Set(prev);
+      if (next.has(sector)) next.delete(sector);
+      else next.add(sector);
+      return next;
+    });
+  };
+
+  const visibleCompanies = companies.filter((c) => activeSectors.has(c.sector));
+
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -108,6 +123,27 @@ const YoYChangeChart = ({ data }: Props) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {/* Sector filter buttons */}
+        <div className="flex gap-2 mb-4 flex-wrap">
+          {Object.entries(SECTOR_CONFIG).map(([sector, cfg]) => {
+            const active = activeSectors.has(sector);
+            return (
+              <button
+                key={sector}
+                onClick={() => toggleSector(sector)}
+                className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors border"
+                style={{
+                  backgroundColor: active ? cfg.colorDark : "transparent",
+                  color: active ? "#fff" : "hsl(var(--muted-foreground))",
+                  borderColor: active ? cfg.colorDark : "hsl(var(--border))",
+                  opacity: active ? 1 : 0.5,
+                }}
+              >
+                {sector}
+              </button>
+            );
+          })}
+        </div>
         <div className="h-[400px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
@@ -159,10 +195,10 @@ const YoYChangeChart = ({ data }: Props) => {
                   fontSize: 12,
                 }}
               />
-              {companies.map((c) => (
+              {visibleCompanies.map((c) => (
                 <Line
                   key={c.name}
-                  type="monotone"
+                  type="linear"
                   dataKey={c.name}
                   stroke={c.color}
                   strokeDasharray={c.dash}
