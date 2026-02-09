@@ -9,7 +9,6 @@ import {
   CartesianGrid,
   ReferenceLine,
   Cell,
-  Legend,
 } from "recharts";
 import {
   Card,
@@ -168,13 +167,7 @@ const CredibilityChart = ({ data }: Props) => {
                   );
                 }}
               />
-              <Legend
-                verticalAlign="bottom"
-                height={30}
-                formatter={(value: string) => (
-                  <span className="text-xs text-muted-foreground">{value}</span>
-                )}
-              />
+              
               <Bar dataKey="avgAlignment" name="Alignment" radius={[3, 3, 0, 0]}>
                 {chartData.map((row, i) => (
                   <Cell key={`align-${i}`} fill={row.colorDark} />
@@ -187,6 +180,18 @@ const CredibilityChart = ({ data }: Props) => {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+        </div>
+
+        {/* Custom legend with sector-aware colors */}
+        <div className="flex items-center justify-center gap-6 mt-3 text-xs text-muted-foreground">
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: chartData[0]?.colorDark ?? "#666" }} />
+            Alignment
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: chartData[0]?.colorLight ?? "#aaa" }} />
+            Realism
+          </div>
         </div>
       </CardContent>
     </Card>
