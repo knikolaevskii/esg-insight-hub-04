@@ -129,65 +129,24 @@ const YoYChangeChart = ({ data }: Props) => {
     return { bars: orderedBars, summaries: sums };
   }, [data, baseYear]);
 
-  // Build recharts data with spacer entries between company groups
-  const chartData = useMemo(() => {
-    const result: {
-      barKey: string;
-      company: string;
-      year: number;
-      value: number | null;
-      color: string;
-      sector: string;
-      companyIndex: number;
-      isSpacer?: boolean;
-    }[] = [];
+  // Build recharts data: one entry per bar
+  const chartData = bars.map((b) => ({
+    barKey: b.key,
+    label: String(b.year),
+    company: b.company,
+    year: b.year,
+    value: b.pctChange,
+    color: b.colorDark,
+    sector: b.sector,
+    companyIndex: b.companyIndex,
+  }));
 
-    // Group bars by companyIndex
-    const grouped = new Map<number, typeof bars>();
-    for (const b of bars) {
-      const list = grouped.get(b.companyIndex) ?? [];
-      list.push(b);
-      grouped.set(b.companyIndex, list);
-    }
-
-    const sortedIndices = [...grouped.keys()].sort((a, b) => a - b);
-    sortedIndices.forEach((ci, gi) => {
-      // Add spacer before each group except the first
-      if (gi > 0) {
-        result.push({
-          barKey: `spacer-${ci}`,
-          company: "",
-          year: 0,
-          value: null,
-          color: "transparent",
-          sector: "",
-          companyIndex: ci,
-          isSpacer: true,
-        });
-      }
-      for (const b of grouped.get(ci)!) {
-        result.push({
-          barKey: b.key,
-          company: b.company,
-          year: b.year,
-          value: b.pctChange,
-          color: b.colorDark,
-          sector: b.sector,
-          companyIndex: b.companyIndex,
-        });
-      }
-    });
-
-    return result;
-  }, [bars]);
-
-  // Company group positions for labels and separators
-  const companyGroups = useMemo(() => {
+  // Custom tick for x-axis: show year under each bar, company name above groups
+  const companyLabels = useMemo(() => {
     const groups: { company: string; startIdx: number; endIdx: number }[] = [];
     let current = "";
     let start = 0;
     chartData.forEach((d, i) => {
-      if (d.isSpacer) return;
       if (d.company !== current) {
         if (current) groups.push({ company: current, startIdx: start, endIdx: i - 1 });
         current = d.company;
@@ -197,12 +156,6 @@ const YoYChangeChart = ({ data }: Props) => {
     if (current) groups.push({ company: current, startIdx: start, endIdx: chartData.length - 1 });
     return groups;
   }, [chartData]);
-
-  // Find spacer keys for reference lines
-  const spacerKeys = useMemo(
-    () => chartData.filter((d) => d.isSpacer).map((d) => d.barKey),
-    [chartData]
-  );
 
   return (
     <Card>
@@ -215,86 +168,57 @@ const YoYChangeChart = ({ data }: Props) => {
         <div className="flex gap-6 flex-col lg:flex-row">
           {/* Chart */}
           <div className="flex-1 min-w-0">
-            <div className="h-[440px]">
+            <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} barCategoryGap="12%" barGap={2} margin={{ top: 40 }}>
+                <BarChart data={chartData} barCategoryGap="15%" barGap={2}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
                     dataKey="barKey"
                     tick={(props: any) => {
                       const { x, y, payload } = props;
                       const item = chartData.find((d) => d.barKey === payload.value);
-                      if (!item || item.isSpacer) return <text />;
+                      if (!item) return <text />;
 
-                      const group = companyGroups.find((g) => g.company === item.company);
+                      // Check if this is the first bar of a company group
+                      const group = companyLabels.find((g) => g.company === item.company);
                       const isFirst =
                         group && chartData[group.startIdx]?.barKey === payload.value;
+
+                      // Company label width spans entire group
                       const groupSize = group
                         ? group.endIdx - group.startIdx + 1
                         : 1;
-                      // Estimate bar spacing (rough)
-                      const barSpacing = 38;
 
                       return (
                         <g>
-                          {/* Year label on top of bar */}
                           <text
                             x={x}
-                            y={y - 8}
+                            y={y + 14}
                             textAnchor="middle"
                             fontSize={10}
                             fill="hsl(var(--muted-foreground))"
                           >
                             {item.year}
                           </text>
+                          {isFirst && (
+                            <text
+                              x={x + ((groupSize - 1) * 40) / 2}
+                              y={y + 28}
+                              textAnchor="middle"
+                              fontSize={11}
+                              fontWeight={600}
+                              fill="hsl(var(--foreground))"
+                            >
+                              {item.company}
+                            </text>
+                          )}
                         </g>
                       );
                     }}
                     interval={0}
-                    height={10}
+                    height={50}
                     tickLine={false}
                     axisLine={{ stroke: "hsl(var(--border))" }}
-                  />
-                  {/* Top axis for company names */}
-                  <XAxis
-                    dataKey="barKey"
-                    orientation="top"
-                    xAxisId="top"
-                    tick={(props: any) => {
-                      const { x, y, payload } = props;
-                      const item = chartData.find((d) => d.barKey === payload.value);
-                      if (!item || item.isSpacer) return <text />;
-
-                      const group = companyGroups.find((g) => g.company === item.company);
-                      const isFirst =
-                        group && chartData[group.startIdx]?.barKey === payload.value;
-
-                      if (!isFirst) return <text />;
-
-                      // Count non-spacer bars in this group
-                      const barsInGroup = chartData
-                        .slice(group!.startIdx, group!.endIdx + 1)
-                        .filter((d) => !d.isSpacer).length;
-                      const barSpacing = 38;
-                      const offset = ((barsInGroup - 1) * barSpacing) / 2;
-
-                      return (
-                        <text
-                          x={x + offset}
-                          y={y + 16}
-                          textAnchor="middle"
-                          fontSize={11}
-                          fontWeight={600}
-                          fill="hsl(var(--foreground))"
-                        >
-                          {item.company}
-                        </text>
-                      );
-                    }}
-                    interval={0}
-                    height={28}
-                    tickLine={false}
-                    axisLine={false}
                   />
                   <YAxis
                     tickFormatter={(v: number) => `${v}%`}
@@ -314,7 +238,6 @@ const YoYChangeChart = ({ data }: Props) => {
                     content={({ active, payload }) => {
                       if (!active || !payload?.length) return null;
                       const d = payload[0].payload;
-                      if (d.isSpacer) return null;
                       return (
                         <div
                           className="rounded-lg border bg-popover px-3 py-2 text-xs shadow-md"
@@ -336,14 +259,15 @@ const YoYChangeChart = ({ data }: Props) => {
                       );
                     }}
                   />
-                  {/* Dashed separator lines at spacer positions */}
-                  {spacerKeys.map((key) => (
+                  {/* Dashed separator lines between company groups */}
+                  {companyLabels.slice(1).map((group) => (
                     <ReferenceLine
-                      key={`sep-${key}`}
-                      x={key}
+                      key={`sep-${group.company}`}
+                      x={chartData[group.startIdx]?.barKey}
                       stroke="hsl(var(--border))"
                       strokeDasharray="4 4"
                       strokeWidth={1}
+                      ifOverflow="extendDomain"
                     />
                   ))}
                   <Bar dataKey="value" radius={[4, 4, 0, 0]}>
