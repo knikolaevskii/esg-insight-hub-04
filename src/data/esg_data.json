@@ -13,8 +13,14 @@
         {
           "company": "Amazon",
           "reporting_year": 2021,
-          "scope1": { "value": 12110000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 4070000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 12110000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 4070000.0,
+            "unit": "tCO2e"
+          },
           "assurance": false,
           "assurance_notes": "No external assurance mentioned in the 2021 report.",
           "targets": [
@@ -41,13 +47,24 @@
             }
           ],
           "action_plans": "Scaling renewable energy procurement through utility-scale wind and solar PPAs, initial deployment of Rivian electric delivery vans, investments in The Climate Pledge Fund for low-carbon technologies, and operational efficiency improvements in fulfilment centres.",
-          "source_file": "reports/Amazon/2021/annual_report.pdf"
+          "source_file": "reports/Amazon/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Amazon",
           "reporting_year": 2022,
-          "scope1": { "value": 11400000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 2890000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 13400000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 2890000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Assurance of carbon and renewable energy data obtained.",
           "targets": [
@@ -81,13 +98,24 @@
             }
           ],
           "action_plans": "Continued scaling of renewable energy capacity, deployment of over 3,000 Rivian electric vans, investment in carbon removal technologies including direct air capture, Shipment Zero initiative targeting net-zero carbon on all shipments.",
-          "source_file": "reports/Amazon/2022/annual_report.pdf"
+          "source_file": "reports/Amazon/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Amazon",
           "reporting_year": 2023,
-          "scope1": { "value": 10070000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 2790000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 14270000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 2790000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "External assurance for carbon and renewable energy data referenced.",
           "targets": [
@@ -121,7 +149,12 @@
             }
           ],
           "action_plans": "Driving efficiency across operations, selecting lower-carbon alternatives for materials and fuels, transitioning to carbon-free electricity via rooftop solar and utility-scale PPAs, engaging suppliers to set decarbonization plans, scaling EV deployment, and investing in carbon removal and nature-based projects.",
-          "source_file": "reports/Amazon/2023/annual_report.pdf"
+          "source_file": "reports/Amazon/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 3,
+            "realism": 2
+          }
         }
       ]
     },
@@ -131,8 +164,14 @@
         {
           "company": "BP",
           "reporting_year": 2021,
-          "scope1": { "value": 33200000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 2400000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 33200000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 2400000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by Deloitte.",
           "targets": [
@@ -166,13 +205,24 @@
             }
           ],
           "action_plans": "Implementing energy efficiency measures, electrifying operations, reducing flaring and venting, expanding renewable energy investments, deploying methane detection and measurement technology across upstream assets.",
-          "source_file": "reports/BP/2021/annual_report.pdf"
+          "source_file": "reports/BP/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 3,
+            "realism": 2
+          }
         },
         {
           "company": "BP",
           "reporting_year": 2022,
-          "scope1": { "value": 31900000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 1500000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 31900000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 1500000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by Deloitte.",
           "targets": [
@@ -206,13 +256,24 @@
             }
           ],
           "action_plans": "Increasing bioenergy production, hydrogen projects, EV charging infrastructure expansion, operational emissions reduction through electrification of facilities, and continued methane emissions monitoring improvements.",
-          "source_file": "reports/BP/2022/annual_report.pdf"
+          "source_file": "reports/BP/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "BP",
           "reporting_year": 2023,
-          "scope1": { "value": 31100000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 1000000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 31100000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 1000000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by Deloitte.",
           "targets": [
@@ -246,7 +307,12 @@
             }
           ],
           "action_plans": "Accelerating transition to integrated energy company, investing in offshore wind, solar, and CCUS, carbon capture and storage projects, biofuels expansion, and continued operational emissions reductions through electrification and efficiency.",
-          "source_file": "reports/BP/2023/annual_report.pdf"
+          "source_file": "reports/BP/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         }
       ]
     },
@@ -256,8 +322,14 @@
         {
           "company": "Coca-Cola",
           "reporting_year": 2021,
-          "scope1": { "value": 3680000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 2450000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 3680000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 2450000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
@@ -291,13 +363,24 @@
             }
           ],
           "action_plans": "Improving energy efficiency in manufacturing facilities, transitioning to renewable electricity through PPAs, sustainable packaging initiatives under World Without Waste, and engaging bottling partners on emissions reduction.",
-          "source_file": "reports/Coca Cola/2021/annual_report.pdf"
+          "source_file": "reports/Coca Cola/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Coca-Cola",
           "reporting_year": 2022,
-          "scope1": { "value": 2000000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 3500000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 4400000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 3500000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
@@ -331,13 +414,24 @@
             }
           ],
           "action_plans": "Expanding use of recycled materials in packaging, water stewardship programs, cold drink equipment efficiency improvements, renewable electricity procurement in key markets, and supply chain engagement on Scope 3.",
-          "source_file": "reports/Coca Cola/2022/annual_report.pdf"
+          "source_file": "reports/Coca Cola/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Coca-Cola",
           "reporting_year": 2023,
-          "scope1": { "value": 1900000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 3340000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 3550000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 3340000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
@@ -371,7 +465,12 @@
             }
           ],
           "action_plans": "Science-based target validation, renewable energy procurement expansion, circular economy initiatives including refillable packaging pilots, cold drink equipment HFC phase-down, and supplier decarbonization engagement programs.",
-          "source_file": "reports/Coca Cola/2023/annual_report.pdf"
+          "source_file": "reports/Coca Cola/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         }
       ]
     },
@@ -381,10 +480,16 @@
         {
           "company": "ENGIE",
           "reporting_year": 2021,
-          "scope1": { "value": 44500000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 1200000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 44500000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 1200000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
-          "assurance_notes": "Limited assurance provided. SBTi well-below 2°C certification obtained in 2020.",
+          "assurance_notes": "Limited assurance provided. SBTi well-below 2\u00b0C certification obtained in 2020.",
           "targets": [
             {
               "description": "Net Zero Carbon by 2045",
@@ -423,15 +528,26 @@
             }
           ],
           "action_plans": "Exiting coal activities across continental Europe, investing in renewables and green gases, developing hydrogen infrastructure, expanding battery storage deployment, and pursuing SBTi certification.",
-          "source_file": "reports/ENGIE/2021/annual_report.pdf"
+          "source_file": "reports/ENGIE/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 4.0,
+            "alignment": 3,
+            "realism": 3
+          }
         },
         {
           "company": "ENGIE",
           "reporting_year": 2022,
-          "scope1": { "value": 38200000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 980000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 38200000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 980000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
-          "assurance_notes": "Limited assurance provided. SBTi well-below 2°C certification upgraded in February 2023.",
+          "assurance_notes": "Limited assurance provided. SBTi well-below 2\u00b0C certification upgraded in February 2023.",
           "targets": [
             {
               "description": "Net Zero Carbon by 2045",
@@ -470,15 +586,26 @@
             }
           ],
           "action_plans": "Accelerating coal phase-out, growing solar and wind capacity towards 50 GW target, battery storage deployment, large-scale green hydrogen development, and customer decarbonization services.",
-          "source_file": "reports/ENGIE/2022/annual_report.pdf"
+          "source_file": "reports/ENGIE/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 4.0,
+            "alignment": 3,
+            "realism": 3
+          }
         },
         {
           "company": "ENGIE",
           "reporting_year": 2023,
-          "scope1": { "value": 32100000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 750000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 32100000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 750000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
-          "assurance_notes": "Limited assurance provided. SBTi well-below 2°C certified.",
+          "assurance_notes": "Limited assurance provided. SBTi well-below 2\u00b0C certified.",
           "targets": [
             {
               "description": "Net Zero Carbon by 2045",
@@ -517,7 +644,12 @@
             }
           ],
           "action_plans": "Full coal exit by 2025 in Europe, large-scale green hydrogen projects, district heating decarbonisation, 4 GW average annual renewable commissioning, 10 GW battery storage by 2030, and customer decarbonization with 45 Mt CO2 avoided target.",
-          "source_file": "reports/ENGIE/2023/annual_report.pdf"
+          "source_file": "reports/ENGIE/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 4.0,
+            "alignment": 3,
+            "realism": 2
+          }
         }
       ]
     },
@@ -527,8 +659,14 @@
         {
           "company": "Intel",
           "reporting_year": 2021,
-          "scope1": { "value": 1580000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 810000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 1580000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 810000.0,
+            "unit": "tCO2e"
+          },
           "assurance": false,
           "assurance_notes": "No formal third-party assurance identified for this year.",
           "targets": [
@@ -555,13 +693,24 @@
             }
           ],
           "action_plans": "Energy efficiency improvements in fabrication facilities, renewable energy procurement, chemical emissions abatement programs for semiconductor manufacturing process gases, and investment in green building certifications.",
-          "source_file": "reports/Intel/2021/annual_report.pdf"
+          "source_file": "reports/Intel/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Intel",
           "reporting_year": 2022,
-          "scope1": { "value": 1190900.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 347600.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 1190900.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 347600.0,
+            "unit": "tCO2e"
+          },
           "assurance": false,
           "assurance_notes": "No formal third-party assurance identified.",
           "targets": [
@@ -595,13 +744,24 @@
             }
           ],
           "action_plans": "Green building certifications, water restoration projects, supply chain engagement on emissions, continued investment in abatement of semiconductor process gas emissions, and renewable energy expansion.",
-          "source_file": "reports/Intel/2022/annual_report.pdf"
+          "source_file": "reports/Intel/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Intel",
           "reporting_year": 2023,
-          "scope1": { "value": 845000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 47800.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 845000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 47800.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "External assurance obtained for the first time.",
           "targets": [
@@ -635,7 +795,12 @@
             }
           ],
           "action_plans": "RISE strategy implementation, ultra-EUV efficiency gains, 100% renewable electricity goal, advanced process gas abatement technology deployment, supply chain decarbonization engagement, and water restoration exceeding consumption in water-stressed areas.",
-          "source_file": "reports/Intel/2023/annual_report.pdf"
+          "source_file": "reports/Intel/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 3,
+            "realism": 2
+          }
         }
       ]
     },
@@ -645,8 +810,14 @@
         {
           "company": "Nestle",
           "reporting_year": 2021,
-          "scope1": { "value": 3370000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 1610000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 3370000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 1610000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY. SBTi-approved targets.",
           "targets": [
@@ -687,13 +858,24 @@
             }
           ],
           "action_plans": "Regenerative agriculture programs across key sourcing regions, reforestation and landscape restoration, transitioning to renewable energy in factories, dairy decarbonization initiatives, and sustainable sourcing expansion.",
-          "source_file": "reports/Nestle/2021/annual_report.pdf"
+          "source_file": "reports/Nestle/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 3,
+            "realism": 2
+          }
         },
         {
           "company": "Nestle",
           "reporting_year": 2022,
-          "scope1": { "value": 3300000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 760000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 3300000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 760000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY.",
           "targets": [
@@ -727,13 +909,24 @@
             }
           ],
           "action_plans": "Dairy decarbonisation roadmap with farmer engagement, forest positive strategy, sustainable sourcing expansion, renewable energy transition in manufacturing, and logistics efficiency improvements.",
-          "source_file": "reports/Nestle/2022/annual_report.pdf"
+          "source_file": "reports/Nestle/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 3,
+            "realism": 2
+          }
         },
         {
           "company": "Nestle",
           "reporting_year": 2023,
-          "scope1": { "value": 3160000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 310000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 3160000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 310000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance provided by EY. SBTi-approved.",
           "targets": [
@@ -767,7 +960,12 @@
             }
           ],
           "action_plans": "Plant-based product expansion, packaging innovation to reduce virgin plastic use, supply chain traceability improvements, regenerative agriculture at scale, and transition to 100% renewable electricity in manufacturing operations.",
-          "source_file": "reports/Nestle/2023/annual_report.pdf"
+          "source_file": "reports/Nestle/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 4.0,
+            "alignment": 3,
+            "realism": 3
+          }
         }
       ]
     },
@@ -777,10 +975,16 @@
         {
           "company": "SSE",
           "reporting_year": 2021,
-          "scope1": { "value": 7600000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 540000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 7600000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 540000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
-          "assurance_notes": "Assured by PwC. SBTi-approved 1.5°C-aligned targets.",
+          "assurance_notes": "Assured by PwC. SBTi-approved 1.5\u00b0C-aligned targets.",
           "targets": [
             {
               "description": "Net zero for Scope 1 and 2 emissions by 2040",
@@ -812,13 +1016,24 @@
             }
           ],
           "action_plans": "Investing in offshore wind, flexible generation, and electricity network upgrades. Closure of coal and oil-fired generation. Developing low-carbon thermal alternatives and supporting a just transition.",
-          "source_file": "reports/SSE/2021/annual_report.pdf"
+          "source_file": "reports/SSE/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 4.0,
+            "alignment": 3,
+            "realism": 3
+          }
         },
         {
           "company": "SSE",
           "reporting_year": 2022,
-          "scope1": { "value": 5750000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 490000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 5750000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 490000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Assured by PwC.",
           "targets": [
@@ -851,14 +1066,25 @@
               "scope": "Supply chain"
             }
           ],
-          "action_plans": "Dogger Bank wind farm construction, smart grid investments, green hydrogen pilots at Keadby, Keadby 3 carbon capture power station planning, SF6 leakage reduction, and NZAP Plus investment programme of £18bn to 2027.",
-          "source_file": "reports/SSE/2022/annual_report.pdf"
+          "action_plans": "Dogger Bank wind farm construction, smart grid investments, green hydrogen pilots at Keadby, Keadby 3 carbon capture power station planning, SF6 leakage reduction, and NZAP Plus investment programme of \u00a318bn to 2027.",
+          "source_file": "reports/SSE/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 4.0,
+            "alignment": 3,
+            "realism": 3
+          }
         },
         {
           "company": "SSE",
           "reporting_year": 2023,
-          "scope1": { "value": 6080000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 440000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 6080000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 440000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Assured by PwC. Scope 1 increased due to Triton Power acquisition.",
           "targets": [
@@ -892,7 +1118,12 @@
             }
           ],
           "action_plans": "Accelerating renewables pipeline, CCUS partnerships including Keadby 3, Just Transition commitments, low-carbon flexible thermal generation with biofuels, SF6 alternative gas rollout in networks, and continued NZAP Plus delivery.",
-          "source_file": "reports/SSE/2023/annual_report.pdf"
+          "source_file": "reports/SSE/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 4.0,
+            "alignment": 3,
+            "realism": 2
+          }
         }
       ]
     },
@@ -902,8 +1133,14 @@
         {
           "company": "Shell",
           "reporting_year": 2021,
-          "scope1": { "value": 68000000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 8000000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 68000000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 8000000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance by LRQA. Operational control boundary.",
           "targets": [
@@ -937,13 +1174,24 @@
             }
           ],
           "action_plans": "Growing LNG portfolio as transition fuel, investing in biofuels, hydrogen, and EV charging network, launching Powering Progress strategy, carbon capture investments, and nature-based solutions.",
-          "source_file": "reports/Shell/2021/annual_report.pdf"
+          "source_file": "reports/Shell/2021/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.5,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Shell",
           "reporting_year": 2022,
-          "scope1": { "value": 51000000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 7000000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 51000000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 7000000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance by LRQA.",
           "targets": [
@@ -977,13 +1225,24 @@
             }
           ],
           "action_plans": "Nature-based solutions, carbon capture projects, expanding renewables and power trading, $5 billion annual investment in low-carbon energy solutions, and participation in Oil and Gas Decarbonization Charter.",
-          "source_file": "reports/Shell/2022/annual_report.pdf"
+          "source_file": "reports/Shell/2022/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         },
         {
           "company": "Shell",
           "reporting_year": 2023,
-          "scope1": { "value": 57000000.0, "unit": "tCO2e" },
-          "scope2_market": { "value": 7000000.0, "unit": "tCO2e" },
+          "scope1": {
+            "value": 57000000.0,
+            "unit": "tCO2e"
+          },
+          "scope2_market": {
+            "value": 7000000.0,
+            "unit": "tCO2e"
+          },
           "assurance": true,
           "assurance_notes": "Limited assurance by LRQA. Achieved more than 60% of 2030 target to halve Scope 1+2.",
           "targets": [
@@ -1024,7 +1283,12 @@
             }
           ],
           "action_plans": "Powering Progress strategy with $5.6bn invested in low-carbon energy solutions in 2023, integrated gas transition, customer decarbonisation solutions, biofuels and hydrogen scaling, EV charging network expansion, and 49% of R&D budget on decarbonisation projects.",
-          "source_file": "reports/Shell/2023/annual_report.pdf"
+          "source_file": "reports/Shell/2023/annual_report.pdf",
+          "credibility": {
+            "credibility_score": 3.0,
+            "alignment": 2,
+            "realism": 2
+          }
         }
       ]
     }
