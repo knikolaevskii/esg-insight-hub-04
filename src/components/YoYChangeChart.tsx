@@ -168,10 +168,9 @@ const YoYChangeChart = ({ data }: Props) => {
         <div className="flex gap-6 flex-col lg:flex-row">
           {/* Chart */}
           <div className="flex-1 min-w-0">
-            <div className="overflow-x-auto">
-              <div style={{ minWidth: Math.max(chartData.length * 60, 600), height: 400 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData} barCategoryGap="25%" barGap={2}>
+            <div className="h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} barCategoryGap="15%" barGap={2}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
                     dataKey="barKey"
@@ -278,7 +277,6 @@ const YoYChangeChart = ({ data }: Props) => {
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
-              </div>
             </div>
             {/* Sector legend */}
             <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
