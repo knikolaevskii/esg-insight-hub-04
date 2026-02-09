@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell, Customized } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
 import { SECTOR_CONFIG, getCompanySector } from "@/config/sectors";
@@ -105,33 +105,26 @@ const YoYChangeChart = ({ data }: Props) => {
     return { bars: orderedBars, summaries: sums };
   }, [data, baseYear]);
 
-  // Build recharts data: one entry per bar
-  const chartData = bars.map((b) => ({
-    barKey: b.key,
-    label: String(b.year),
-    company: b.company,
-    year: b.year,
-    value: b.pctChange,
-    color: b.colorDark,
-    sector: b.sector,
-    companyIndex: b.companyIndex,
-  }));
+  // Build recharts data: one entry per company with year-keyed values
+  const years = useMemo(() => {
+    const allYears = [...new Set(data.map((d) => d.reporting_year))].sort().filter((y) => y !== baseYear);
+    return allYears;
+  }, [data, baseYear]);
 
-  // Custom tick for x-axis: show year under each bar, company name above groups
-  const companyLabels = useMemo(() => {
-    const groups: { company: string; startIdx: number; endIdx: number }[] = [];
-    let current = "";
-    let start = 0;
-    chartData.forEach((d, i) => {
-      if (d.company !== current) {
-        if (current) groups.push({ company: current, startIdx: start, endIdx: i - 1 });
-        current = d.company;
-        start = i;
+  const chartData = useMemo(() => {
+    return summaries.map((s) => {
+      const companyBars = bars.filter((b) => b.company === s.company);
+      const entry: Record<string, any> = {
+        company: s.company,
+        sector: s.sector,
+        colorDark: companyBars[0]?.colorDark ?? "#888",
+      };
+      for (const b of companyBars) {
+        entry[`y${b.year}`] = b.pctChange;
       }
+      return entry;
     });
-    if (current) groups.push({ company: current, startIdx: start, endIdx: chartData.length - 1 });
-    return groups;
-  }, [chartData]);
+  }, [summaries, bars]);
 
   return (
     <Card>
@@ -144,23 +137,12 @@ const YoYChangeChart = ({ data }: Props) => {
           <div className="flex-1 min-w-0">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} barCategoryGap="15%" barGap={2} margin={{ top: 30 }}>
+                <BarChart data={chartData} barCategoryGap="25%" barGap={1} margin={{ top: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
-                    dataKey="barKey"
-                    tick={(props: any) => {
-                      const { x, y, payload } = props;
-                      const item = chartData.find((d) => d.barKey === payload.value);
-                      if (!item) return <text />;
-
-                      return (
-                        <text x={x} y={y + 14} textAnchor="middle" fontSize={10} fill="hsl(var(--muted-foreground))">
-                          {item.year}
-                        </text>
-                      );
-                    }}
+                    dataKey="company"
+                    tick={{ fontSize: 11, fontWeight: 600 }}
                     interval={0}
-                    height={30}
                     tickLine={false}
                     axisLine={{ stroke: "hsl(var(--border))" }}
                   />
@@ -188,95 +170,49 @@ const YoYChangeChart = ({ data }: Props) => {
                           style={{ borderColor: "hsl(var(--border))" }}
                         >
                           <p className="font-semibold">{d.company}</p>
-                          <p className="text-muted-foreground">Year: {d.year}</p>
-                          <p>
-                            Change:{" "}
-                            <span className="font-medium" style={{ color: d.value < 0 ? "#16a34a" : "#dc2626" }}>
-                              {d.value > 0 ? "+" : ""}
-                              {d.value.toFixed(1)}%
-                            </span>
-                          </p>
+                          {payload.map((p: any) => {
+                            const yr = String(p.dataKey).replace("y", "");
+                            const val = p.value as number;
+                            return (
+                              <p key={p.dataKey}>
+                                {yr}:{" "}
+                                <span className="font-medium" style={{ color: val < 0 ? "#16a34a" : "#dc2626" }}>
+                                  {val > 0 ? "+" : ""}
+                                  {val.toFixed(1)}%
+                                </span>
+                              </p>
+                            );
+                          })}
                         </div>
                       );
                     }}
                   />
-                  {/* Company name labels above bars and separator lines */}
-                  <Customized
-                    component={({ xAxisMap, yAxisMap }: any) => {
-                      if (!xAxisMap || !yAxisMap) return null;
-                      const xAxis = Object.values(xAxisMap)[0] as any;
-                      const yAxis = Object.values(yAxisMap)[0] as any;
-                      if (!xAxis?.bandSize || !yAxis) return null;
-                      const bandSize = xAxis.bandSize;
-                      const y1 = yAxis.y;
-                      const y2 = yAxis.y + yAxis.height;
-
-                      return (
-                        <g>
-                          {/* Company labels above bars */}
-                          {companyLabels.map((group) => {
-                            const firstBarKey = chartData[group.startIdx]?.barKey;
-                            const lastBarKey = chartData[group.endIdx]?.barKey;
-                            if (!firstBarKey || !lastBarKey) return null;
-
-                            const firstX = xAxis.scale(firstBarKey);
-                            const lastX = xAxis.scale(lastBarKey);
-                            if (firstX == null || lastX == null) return null;
-
-                            const centerX = (firstX + lastX) / 2 + bandSize / 2;
-
-                            return (
-                              <text
-                                key={`label-${group.company}`}
-                                x={centerX}
-                                y={y1 - 12}
-                                textAnchor="middle"
-                                fontSize={11}
-                                fontWeight={600}
-                                fill="hsl(var(--foreground))"
-                              >
-                                {group.company}
-                              </text>
-                            );
-                          })}
-
-                          {/* Dashed separator lines between company groups */}
-                          {companyLabels.slice(1).map((group) => {
-                            const prevGroup = companyLabels[companyLabels.indexOf(group) - 1];
-                            if (!prevGroup) return null;
-                            const lastBarKey = chartData[prevGroup.endIdx]?.barKey;
-                            const firstBarKey = chartData[group.startIdx]?.barKey;
-                            const lastX = xAxis.scale(lastBarKey);
-                            const firstX = xAxis.scale(firstBarKey);
-                            if (lastX == null || firstX == null) return null;
-                            const xPos = (lastX + bandSize + firstX) / 2;
-                            return (
-                              <line
-                                key={`sep-${group.company}`}
-                                x1={xPos}
-                                x2={xPos}
-                                y1={y1}
-                                y2={y2}
-                                stroke="#d1d5db"
-                                strokeDasharray="4 4"
-                                strokeWidth={1}
-                              />
-                            );
-                          })}
-                        </g>
-                      );
-                    }}
-                  />
-                  <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                    {chartData.map((entry) => (
-                      <Cell key={entry.barKey} fill={entry.color} />
-                    ))}
-                  </Bar>
+                  {years.map((yr, i) => (
+                    <Bar key={yr} dataKey={`y${yr}`} name={String(yr)} radius={[4, 4, 0, 0]}>
+                      {chartData.map((entry) => (
+                        <Cell
+                          key={entry.company}
+                          fill={entry.colorDark}
+                          fillOpacity={i === 0 ? 1 : 0.6}
+                        />
+                      ))}
+                    </Bar>
+                  ))}
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            {/* Sector legend */}
+            {/* Legend */}
             <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
+              {years.map((yr, i) => (
+                <div key={yr} className="flex items-center gap-1.5">
+                  <div
+                    className="w-3 h-3 rounded-sm"
+                    style={{ backgroundColor: "#555", opacity: i === 0 ? 1 : 0.6 }}
+                  />
+                  {yr}
+                </div>
+              ))}
+              <span className="mx-2">|</span>
               {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => (
                 <div key={name} className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: cfg.colorDark }} />
