@@ -28,7 +28,7 @@ const COLUMNS = [
   "Sector",
   "Avg Emissions Score",
   "Emission Trend Score",
-  "Credibility Score",
+  "Realism Score",
   "Overall Score",
   "Recommendation",
 ];
@@ -38,7 +38,7 @@ interface CompanyScore {
   sector: string;
   emissionsScore: number;
   trendScore: number;
-  credibilityScore: number;
+  realismScore: number;
   overallScore: number;
   recommendation: string;
 }
@@ -76,22 +76,22 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
       const pctChange =
         firstTotal > 0 ? ((lastTotal - firstTotal) / firstTotal) * 100 : 0;
 
-      // Avg credibility_score across years
+      // Avg realism across years
       const credEntries = entries.filter((e) => e.credibility);
-      const avgCredibility =
+      const avgRealism =
         credEntries.length > 0
           ? credEntries.reduce(
-              (s, e) => s + e.credibility!.credibility_score,
+              (s, e) => s + e.credibility!.realism,
               0
             ) / credEntries.length
-          : 0;
+          : 1;
 
       return {
         company,
         sector: getCompanySector(company) ?? "",
         avgEmissions,
         pctChange,
-        avgCredibility,
+        avgRealism,
       };
     });
 
@@ -115,11 +115,11 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
       // Biggest decrease = 10 (most negative pctChange = best)
       const trendScore = ((maxChange - r.pctChange) / changeRange) * 10;
 
-      // 0-5 → 0-10
-      const credibilityScore = r.avgCredibility * 2;
+      // Realism 1-3 → 0-10
+      const realismScore = ((r.avgRealism - 1) / 2) * 10;
 
       const overallScore =
-        emissionsScore * 0.3 + trendScore * 0.4 + credibilityScore * 0.3;
+        emissionsScore * 0.3 + trendScore * 0.4 + realismScore * 0.3;
 
       let recommendation: string;
       if (overallScore >= 6.0) recommendation = "Finance";
@@ -131,7 +131,7 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
         sector: r.sector,
         emissionsScore: Math.round(emissionsScore * 10) / 10,
         trendScore: Math.round(trendScore * 10) / 10,
-        credibilityScore: Math.round(credibilityScore * 10) / 10,
+        realismScore: Math.round(realismScore * 10) / 10,
         overallScore: Math.round(overallScore * 10) / 10,
         recommendation,
       };
@@ -187,7 +187,7 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
                   {r.trendScore.toFixed(1)}
                 </TableCell>
                 <TableCell className="text-center">
-                  {r.credibilityScore.toFixed(1)}
+                  {r.realismScore.toFixed(1)}
                 </TableCell>
                 <TableCell className="text-center font-semibold">
                   {r.overallScore.toFixed(1)}
