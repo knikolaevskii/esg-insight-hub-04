@@ -2,6 +2,8 @@ import { useState } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
 import EmissionsChart from "@/components/EmissionsChart";
 import YoYChangeChart from "@/components/YoYChangeChart";
+import CredibilityPlaceholder from "@/components/CredibilityPlaceholder";
+import LeaderboardPlaceholder from "@/components/LeaderboardPlaceholder";
 import esgData from "@/data/esg_data.json";
 import type { EsgData } from "@/types/esg";
 
@@ -21,6 +23,8 @@ const Index = () => {
           <div className="grid gap-8">
             <EmissionsChart data={data} />
             <YoYChangeChart data={data} />
+            <CredibilityPlaceholder />
+            <LeaderboardPlaceholder />
           </div>
         ) : (
           <div className="flex items-center justify-center h-64">
