@@ -170,7 +170,7 @@ const YoYChangeChart = ({ data }: Props) => {
           <div className="flex-1 min-w-0">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} barCategoryGap="15%" barGap={2}>
+                <BarChart data={chartData} barCategoryGap="30%" barGap={2}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
                     dataKey="barKey"
@@ -288,7 +288,7 @@ const YoYChangeChart = ({ data }: Props) => {
                                 x2={xPos}
                                 y1={y1}
                                 y2={y2}
-                                stroke="#d1d5db"
+                                stroke="#6b7280"
                                 strokeDasharray="4 4"
                                 strokeWidth={1}
                               />
