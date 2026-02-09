@@ -6,18 +6,9 @@ import esgData from "@/data/esg_data.json";
 import type { EsgData } from "@/types/esg";
 
 /** Normalize inconsistent company names in the JSON */
-const COMPANY_ALIASES: Record<string, string> = {
-  "SSE plc": "SSE PLC",
-  "SSE_PLC": "SSE PLC",
-  "Coca-Cola": "Coca Cola",
-};
+/** No aliases needed — names in the JSON match sector config exactly */
 
-const data = (esgData as EsgData).companies.flatMap((c) =>
-  c.years.map((y) => ({
-    ...y,
-    company: COMPANY_ALIASES[y.company] ?? y.company,
-  }))
-);
+const data = (esgData as EsgData).companies.flatMap((c) => c.years);
 
 const Index = () => {
   const [mode, setMode] = useState<"overview" | "detailed">("overview");

@@ -7,7 +7,7 @@ export interface SectorStyle {
 
 export const SECTOR_CONFIG: Record<string, SectorStyle> = {
   "Energy & Utilities": {
-    companies: ["BP", "ENGIE", "SSE PLC", "Shell"],
+    companies: ["BP", "ENGIE", "SSE", "Shell"],
     colorDark: "#c2410c",
     colorLight: "#fdba74",
     lineStyles: ["", "5 5", "2 2", "8 3 2 3"],
@@ -19,7 +19,7 @@ export const SECTOR_CONFIG: Record<string, SectorStyle> = {
     lineStyles: ["", "5 5"],
   },
   "Consumer Goods": {
-    companies: ["Coca Cola", "Nestle"],
+    companies: ["Coca-Cola", "Nestle"],
     colorDark: "#15803d",
     colorLight: "#86efac",
     lineStyles: ["", "5 5"],
