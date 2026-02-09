@@ -1,33 +1,16 @@
 import { useMemo } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-  Cell,
-  Customized,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell, Customized } from "recharts";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table";
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
 import { SECTOR_CONFIG, getCompanySector } from "@/config/sectors";
 import type { EsgEntry } from "@/types/esg";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
 interface Props {
   data: EsgEntry[];
 }
 
-const safeVal = (v: number | null | undefined): number | null =>
-  v != null && isFinite(v) ? v : null;
+const safeVal = (v: number | null | undefined): number | null => (v != null && isFinite(v) ? v : null);
 
 const getTotal = (entry: EsgEntry): number | null => {
   const s1 = safeVal(entry.scope1?.value);
@@ -53,10 +36,7 @@ interface CompanySummary {
 }
 
 const YoYChangeChart = ({ data }: Props) => {
-  const baseYear = useMemo(
-    () => Math.min(...data.map((d) => d.reporting_year)),
-    [data]
-  );
+  const baseYear = useMemo(() => Math.min(...data.map((d) => d.reporting_year)), [data]);
 
   const { bars, summaries } = useMemo(() => {
     // Build baselines
@@ -70,9 +50,7 @@ const YoYChangeChart = ({ data }: Props) => {
 
     // Compute pct change for each company/year pair (excluding base year)
     const changeMap = new Map<string, CompanyYearBar[]>(); // company -> bars
-    const years = [...new Set(data.map((d) => d.reporting_year))]
-      .sort()
-      .filter((y) => y !== baseYear);
+    const years = [...new Set(data.map((d) => d.reporting_year))].sort().filter((y) => y !== baseYear);
 
     for (const entry of data) {
       if (entry.reporting_year === baseYear) continue;
@@ -104,9 +82,7 @@ const YoYChangeChart = ({ data }: Props) => {
     const sums: CompanySummary[] = [];
     for (const [company, items] of changeMap) {
       const vals = items.map((i) => i.pctChange);
-      const avg = vals.length > 0
-        ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
-        : null;
+      const avg = vals.length > 0 ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100 : null;
       sums.push({
         company,
         sector: items[0].sector,
@@ -160,9 +136,7 @@ const YoYChangeChart = ({ data }: Props) => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg">
-          Relative Emission Change
-        </CardTitle>
+        <CardTitle className="text-lg">Relative Emission Change</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex gap-6 flex-col lg:flex-row">
@@ -170,7 +144,7 @@ const YoYChangeChart = ({ data }: Props) => {
           <div className="flex-1 min-w-0">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} barCategoryGap="15%" barGap={2}>
+                <BarChart data={chartData} barCategoryGap="15%" barGap={2} margin={{ top: 30 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
                     dataKey="barKey"
@@ -179,44 +153,14 @@ const YoYChangeChart = ({ data }: Props) => {
                       const item = chartData.find((d) => d.barKey === payload.value);
                       if (!item) return <text />;
 
-                      // Check if this is the first bar of a company group
-                      const group = companyLabels.find((g) => g.company === item.company);
-                      const isFirst =
-                        group && chartData[group.startIdx]?.barKey === payload.value;
-
-                      // Company label width spans entire group
-                      const groupSize = group
-                        ? group.endIdx - group.startIdx + 1
-                        : 1;
-
                       return (
-                        <g>
-                          <text
-                            x={x}
-                            y={y + 14}
-                            textAnchor="middle"
-                            fontSize={10}
-                            fill="hsl(var(--muted-foreground))"
-                          >
-                            {item.year}
-                          </text>
-                          {isFirst && (
-                            <text
-                              x={x + ((groupSize - 1) * 40) / 2}
-                              y={y + 28}
-                              textAnchor="middle"
-                              fontSize={11}
-                              fontWeight={600}
-                              fill="hsl(var(--foreground))"
-                            >
-                              {item.company}
-                            </text>
-                          )}
-                        </g>
+                        <text x={x} y={y + 14} textAnchor="middle" fontSize={10} fill="hsl(var(--muted-foreground))">
+                          {item.year}
+                        </text>
                       );
                     }}
                     interval={0}
-                    height={50}
+                    height={30}
                     tickLine={false}
                     axisLine={{ stroke: "hsl(var(--border))" }}
                   />
@@ -247,10 +191,7 @@ const YoYChangeChart = ({ data }: Props) => {
                           <p className="text-muted-foreground">Year: {d.year}</p>
                           <p>
                             Change:{" "}
-                            <span
-                              className="font-medium"
-                              style={{ color: d.value < 0 ? "#16a34a" : "#dc2626" }}
-                            >
+                            <span className="font-medium" style={{ color: d.value < 0 ? "#16a34a" : "#dc2626" }}>
                               {d.value > 0 ? "+" : ""}
                               {d.value.toFixed(1)}%
                             </span>
@@ -259,7 +200,7 @@ const YoYChangeChart = ({ data }: Props) => {
                       );
                     }}
                   />
-                  {/* Dashed separator lines between company groups */}
+                  {/* Company name labels above bars and separator lines */}
                   <Customized
                     component={({ xAxisMap, yAxisMap }: any) => {
                       if (!xAxisMap || !yAxisMap) return null;
@@ -269,8 +210,37 @@ const YoYChangeChart = ({ data }: Props) => {
                       const bandSize = xAxis.bandSize;
                       const y1 = yAxis.y;
                       const y2 = yAxis.y + yAxis.height;
+
                       return (
                         <g>
+                          {/* Company labels above bars */}
+                          {companyLabels.map((group) => {
+                            const firstBarKey = chartData[group.startIdx]?.barKey;
+                            const lastBarKey = chartData[group.endIdx]?.barKey;
+                            if (!firstBarKey || !lastBarKey) return null;
+
+                            const firstX = xAxis.scale(firstBarKey);
+                            const lastX = xAxis.scale(lastBarKey);
+                            if (firstX == null || lastX == null) return null;
+
+                            const centerX = (firstX + lastX) / 2 + bandSize / 2;
+
+                            return (
+                              <text
+                                key={`label-${group.company}`}
+                                x={centerX}
+                                y={y1 - 12}
+                                textAnchor="middle"
+                                fontSize={11}
+                                fontWeight={600}
+                                fill="hsl(var(--foreground))"
+                              >
+                                {group.company}
+                              </text>
+                            );
+                          })}
+
+                          {/* Dashed separator lines between company groups */}
                           {companyLabels.slice(1).map((group) => {
                             const prevGroup = companyLabels[companyLabels.indexOf(group) - 1];
                             if (!prevGroup) return null;
@@ -279,7 +249,6 @@ const YoYChangeChart = ({ data }: Props) => {
                             const lastX = xAxis.scale(lastBarKey);
                             const firstX = xAxis.scale(firstBarKey);
                             if (lastX == null || firstX == null) return null;
-                            const midX = lastX + bandSize / 2 + (firstX - lastX - bandSize) / 2 + bandSize / 2;
                             const xPos = (lastX + bandSize + firstX) / 2;
                             return (
                               <line
@@ -306,17 +275,29 @@ const YoYChangeChart = ({ data }: Props) => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            {/* Sector legend */}
-            <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
-              {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => (
-                <div key={name} className="flex items-center gap-1.5">
-                  <div
-                    className="w-3 h-3 rounded-sm"
-                    style={{ backgroundColor: cfg.colorDark }}
-                  />
-                  {name}
-                </div>
-              ))}
+            {/* Enhanced sector legend with trend indicators */}
+            <div className="flex items-center justify-center gap-6 mt-2 text-xs flex-wrap">
+              {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => {
+                // Calculate average trend for this sector
+                const sectorCompanies = summaries.filter((s) => s.sector === name);
+                const sectorAvg =
+                  sectorCompanies.length > 0
+                    ? sectorCompanies.reduce((sum, s) => sum + (s.avg ?? 0), 0) / sectorCompanies.length
+                    : 0;
+                const isDecreasing = sectorAvg < 0;
+
+                return (
+                  <div key={name} className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: cfg.colorDark }} />
+                    <span className="text-muted-foreground">{name}</span>
+                    {isDecreasing ? (
+                      <TrendingDown className="w-3.5 h-3.5 text-green-600" />
+                    ) : (
+                      <TrendingUp className="w-3.5 h-3.5 text-red-600" />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -333,12 +314,8 @@ const YoYChangeChart = ({ data }: Props) => {
               <TableBody>
                 {summaries.map((s) => (
                   <TableRow key={s.company}>
-                    <TableCell className="py-2 text-xs font-medium">
-                      {s.company}
-                    </TableCell>
-                    <TableCell className="py-2 text-xs text-muted-foreground">
-                      {s.sector}
-                    </TableCell>
+                    <TableCell className="py-2 text-xs font-medium">{s.company}</TableCell>
+                    <TableCell className="py-2 text-xs text-muted-foreground">{s.sector}</TableCell>
                     <TableCell className="py-2 text-xs text-right font-mono">
                       {s.avg !== null ? (
                         <span
