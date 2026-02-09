@@ -301,7 +301,7 @@ const YoYChangeChart = ({ data }: Props) => {
                             if (!prevCompany || !currentCompany) return null;
 
                             // Find last bar of previous sector and first bar of current sector
-                            const prevLastBar = chartData.findLast((d) => d.company === prevCompany.company);
+                            const prevLastBar = [...chartData].reverse().find((d) => d.company === prevCompany.company);
                             const currentFirstBar = chartData.find((d) => d.company === currentCompany.company);
 
                             if (!prevLastBar || !currentFirstBar) return null;
