@@ -38,7 +38,7 @@ interface CompanySummary {
 const YoYChangeChart = ({ data }: Props) => {
   const baseYear = useMemo(() => Math.min(...data.map((d) => d.reporting_year)), [data]);
 
-  const { bars, summaries } = useMemo(() => {
+  const { bars, summaries, sectorGroups } = useMemo(() => {
     // Build baselines
     const baselines = new Map<string, number>();
     for (const entry of data) {
@@ -50,7 +50,6 @@ const YoYChangeChart = ({ data }: Props) => {
 
     // Compute pct change for each company/year pair (excluding base year)
     const changeMap = new Map<string, CompanyYearBar[]>(); // company -> bars
-    const years = [...new Set(data.map((d) => d.reporting_year))].sort().filter((y) => y !== baseYear);
 
     for (const entry of data) {
       if (entry.reporting_year === baseYear) continue;
@@ -78,7 +77,7 @@ const YoYChangeChart = ({ data }: Props) => {
       changeMap.set(entry.company, list);
     }
 
-    // Compute averages and sort
+    // Compute averages and group by sector
     const sums: CompanySummary[] = [];
     for (const [company, items] of changeMap) {
       const vals = items.map((i) => i.pctChange);
@@ -89,8 +88,15 @@ const YoYChangeChart = ({ data }: Props) => {
         avg,
       });
     }
-    // Sort best (most negative) to worst
-    sums.sort((a, b) => (a.avg ?? Infinity) - (b.avg ?? Infinity));
+
+    // Sort by sector first (Energy & Utilities, Technology, Consumer Goods), then by avg within sector
+    const sectorOrder = ["Energy & Utilities", "Technology", "Consumer Goods"];
+    sums.sort((a, b) => {
+      const sectorA = sectorOrder.indexOf(a.sector);
+      const sectorB = sectorOrder.indexOf(b.sector);
+      if (sectorA !== sectorB) return sectorA - sectorB;
+      return (a.avg ?? Infinity) - (b.avg ?? Infinity);
+    });
 
     // Build ordered bar data: for each company, add bars for each year
     const orderedBars: (CompanyYearBar & { companyIndex: number })[] = [];
@@ -102,7 +108,25 @@ const YoYChangeChart = ({ data }: Props) => {
       }
     });
 
-    return { bars: orderedBars, summaries: sums };
+    // Calculate sector groups for spacing
+    const groups: { sector: string; startIdx: number; endIdx: number }[] = [];
+    let currentSector = "";
+    let start = 0;
+    sums.forEach((s, i) => {
+      if (s.sector !== currentSector) {
+        if (currentSector) groups.push({ sector: currentSector, startIdx: start, endIdx: i - 1 });
+        currentSector = s.sector;
+        start = i;
+      }
+    });
+    if (currentSector)
+      groups.push({
+        sector: currentSector,
+        startIdx: start,
+        endIdx: sums.length - 1,
+      });
+
+    return { bars: orderedBars, summaries: sums, sectorGroups: groups };
   }, [data, baseYear]);
 
   // Build recharts data: one entry per bar
@@ -129,7 +153,12 @@ const YoYChangeChart = ({ data }: Props) => {
         start = i;
       }
     });
-    if (current) groups.push({ company: current, startIdx: start, endIdx: chartData.length - 1 });
+    if (current)
+      groups.push({
+        company: current,
+        startIdx: start,
+        endIdx: chartData.length - 1,
+      });
     return groups;
   }, [chartData]);
 
@@ -144,7 +173,7 @@ const YoYChangeChart = ({ data }: Props) => {
           <div className="flex-1 min-w-0">
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} barCategoryGap="15%" barGap={2} margin={{ top: 30 }}>
+                <BarChart data={chartData} barCategoryGap="20%" barGap={2} margin={{ top: 30 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
                     dataKey="barKey"
@@ -200,7 +229,7 @@ const YoYChangeChart = ({ data }: Props) => {
                       );
                     }}
                   />
-                  {/* Company name labels above bars and separator lines */}
+                  {/* Company name labels above bars and sector separator lines */}
                   <Customized
                     component={({ xAxisMap, yAxisMap }: any) => {
                       if (!xAxisMap || !yAxisMap) return null;
@@ -240,19 +269,31 @@ const YoYChangeChart = ({ data }: Props) => {
                             );
                           })}
 
-                          {/* Dashed separator lines between company groups */}
-                          {companyLabels.slice(1).map((group) => {
-                            const prevGroup = companyLabels[companyLabels.indexOf(group) - 1];
+                          {/* Dashed separator lines between sectors */}
+                          {sectorGroups.slice(1).map((group) => {
+                            const prevGroup = sectorGroups[sectorGroups.indexOf(group) - 1];
                             if (!prevGroup) return null;
-                            const lastBarKey = chartData[prevGroup.endIdx]?.barKey;
-                            const firstBarKey = chartData[group.startIdx]?.barKey;
-                            const lastX = xAxis.scale(lastBarKey);
-                            const firstX = xAxis.scale(firstBarKey);
+
+                            // Find the last company of previous sector
+                            const prevCompany = summaries[prevGroup.endIdx];
+                            const currentCompany = summaries[group.startIdx];
+                            if (!prevCompany || !currentCompany) return null;
+
+                            // Find last bar of previous sector and first bar of current sector
+                            const prevLastBar = chartData.findLast((d) => d.company === prevCompany.company);
+                            const currentFirstBar = chartData.find((d) => d.company === currentCompany.company);
+
+                            if (!prevLastBar || !currentFirstBar) return null;
+
+                            const lastX = xAxis.scale(prevLastBar.barKey);
+                            const firstX = xAxis.scale(currentFirstBar.barKey);
                             if (lastX == null || firstX == null) return null;
+
                             const xPos = (lastX + bandSize + firstX) / 2;
+
                             return (
                               <line
-                                key={`sep-${group.company}`}
+                                key={`sep-${group.sector}`}
                                 x1={xPos}
                                 x2={xPos}
                                 y1={y1}
