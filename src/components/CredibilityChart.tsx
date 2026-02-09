@@ -88,8 +88,7 @@ const CredibilityChart = ({ data }: Props) => {
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">Credibility Assessment</CardTitle>
         <CardDescription>
-          Average Alignment &amp; Credibility scores across all reporting years
-          (scale 1–3)
+          Average Strategic direction &amp; Credibility of actions scores across all reporting years (scale 1–3)
         </CardDescription>
       </CardHeader>
       <CardContent>
