@@ -8,6 +8,7 @@ import LeaderboardPlaceholder from "@/components/LeaderboardPlaceholder";
 import AbsoluteEmissionsSection from "@/components/detailed/AbsoluteEmissionsSection";
 import RelativeChangeSection from "@/components/detailed/RelativeChangeSection";
 import CredibilityHeatmapSection from "@/components/detailed/CredibilityHeatmapSection";
+import AssuranceOverviewSection from "@/components/detailed/AssuranceOverviewSection";
 import esgData from "@/data/esg_data.json";
 import type { EsgData } from "@/types/esg";
 
@@ -33,6 +34,7 @@ const Index = () => {
             <AbsoluteEmissionsSection data={data} />
             <RelativeChangeSection data={data} />
             <CredibilityHeatmapSection data={data} />
+            <AssuranceOverviewSection data={data} />
           </div>
         )}
       </main>
