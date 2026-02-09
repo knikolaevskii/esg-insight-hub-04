@@ -3,9 +3,9 @@ import DashboardHeader from "@/components/DashboardHeader";
 import EmissionsChart from "@/components/EmissionsChart";
 import YoYChangeChart from "@/components/YoYChangeChart";
 import esgData from "@/data/esg_data.json";
-import type { EsgEntry } from "@/types/esg";
+import type { EsgData } from "@/types/esg";
 
-const data = esgData as EsgEntry[];
+const data = (esgData as EsgData).companies.flatMap((c) => c.years);
 
 const Index = () => {
   const [mode, setMode] = useState<"overview" | "detailed">("overview");
