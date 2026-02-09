@@ -91,8 +91,8 @@ const YoYChangeChart = ({ data }: Props) => {
     // averages for table + sorting
     const sums: CompanySummary[] = [];
     for (const [company, items] of changeMap) {
-      const vals = items.map((i) => i.pctChange);
-      const avg = vals.length > 0 ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100 : null;
+      const yoy2023 = items.find((i) => i.year === 2023)?.pctChange ?? null;
+      const avg = yoy2023 !== null ? Math.round(yoy2023 * 100) / 100 : null;
 
       sums.push({
         company,
