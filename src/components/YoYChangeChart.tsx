@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Cell,
+  ReferenceLine,
 } from "recharts";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
@@ -135,7 +136,7 @@ const YoYChangeChart = ({ data }: Props) => {
     company: b.company,
     year: b.year,
     value: b.pctChange,
-    color: b.year === Math.min(...bars.map((x) => x.year)) ? b.colorDark : b.colorLight,
+    color: b.colorDark,
     sector: b.sector,
     companyIndex: b.companyIndex,
   }));
@@ -160,7 +161,7 @@ const YoYChangeChart = ({ data }: Props) => {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">
-          Relative Emission Change vs {baseYear}
+          Relative Emission Change
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -258,6 +259,17 @@ const YoYChangeChart = ({ data }: Props) => {
                       );
                     }}
                   />
+                  {/* Dashed separator lines between company groups */}
+                  {companyLabels.slice(1).map((group) => (
+                    <ReferenceLine
+                      key={`sep-${group.company}`}
+                      x={chartData[group.startIdx]?.barKey}
+                      stroke="hsl(var(--border))"
+                      strokeDasharray="4 4"
+                      strokeWidth={1}
+                      ifOverflow="extendDomain"
+                    />
+                  ))}
                   <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                     {chartData.map((entry) => (
                       <Cell key={entry.barKey} fill={entry.color} />
@@ -270,16 +282,10 @@ const YoYChangeChart = ({ data }: Props) => {
             <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
               {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => (
                 <div key={name} className="flex items-center gap-1.5">
-                  <div className="flex gap-0.5">
-                    <div
-                      className="w-3 h-3 rounded-sm"
-                      style={{ backgroundColor: cfg.colorDark }}
-                    />
-                    <div
-                      className="w-3 h-3 rounded-sm"
-                      style={{ backgroundColor: cfg.colorLight }}
-                    />
-                  </div>
+                  <div
+                    className="w-3 h-3 rounded-sm"
+                    style={{ backgroundColor: cfg.colorDark }}
+                  />
                   {name}
                 </div>
               ))}
