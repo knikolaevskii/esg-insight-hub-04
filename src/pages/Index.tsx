@@ -24,8 +24,8 @@ const Index = () => {
           <div className="grid gap-8">
             <EmissionsChart data={data} />
             <YoYChangeChart data={data} />
-            <CredibilityChart data={data} />
             <NetZeroChart />
+            <CredibilityChart data={data} />
             <LeaderboardPlaceholder data={data} />
           </div>
         ) : (

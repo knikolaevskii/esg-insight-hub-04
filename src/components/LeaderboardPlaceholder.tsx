@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { SECTOR_CONFIG, getCompanySector } from "@/config/sectors";
-import type { EsgEntry } from "@/types/esg";
+import esgData from "@/data/esg_data.json";
+import type { EsgEntry, EsgData } from "@/types/esg";
 
 interface Props {
   data: EsgEntry[];
@@ -28,17 +29,44 @@ const COLUMNS = [
   "Sector",
   "Avg Emissions Score",
   "Emission Trend Score",
-  "Realism Score",
+  "Target Score",
   "Overall Score",
   "Recommendation",
 ];
+
+function getNetZeroTargets(): Record<string, number | null> {
+  const d = esgData as EsgData;
+  const result: Record<string, number | null> = {};
+  for (const company of d.companies) {
+    const allTargets = company.years.flatMap((y) => y.targets ?? []);
+    const nzTargets = allTargets.filter((t) =>
+      /net[- ]zero/i.test(t.description ?? "")
+    );
+    const withYear = nzTargets.filter((t) => t.target_year != null);
+    if (withYear.length > 0) {
+      withYear.sort((a, b) => (b.target_year ?? 0) - (a.target_year ?? 0));
+      result[company.company] = withYear[0].target_year;
+    } else {
+      result[company.company] = null;
+    }
+  }
+  return result;
+}
+
+function targetYearToScore(year: number | null): number {
+  if (year == null) return 0;
+  if (year <= 2040) return 10;
+  if (year <= 2045) return 7.5;
+  if (year <= 2050) return 5;
+  return 2.5;
+}
 
 interface CompanyScore {
   company: string;
   sector: string;
   emissionsScore: number;
   trendScore: number;
-  realismScore: number;
+  targetScore: number;
   overallScore: number;
   recommendation: string;
   hasPenalty: boolean;
@@ -49,60 +77,51 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
     const companies = Object.values(SECTOR_CONFIG).flatMap((cfg) =>
       cfg.companies.map((c) => c)
     );
+    const netZeroTargets = getNetZeroTargets();
 
-    // Step 1: Compute raw values per company
     const rawValues = companies.map((company) => {
       const entries = data.filter((d) => d.company === company);
 
-      // Avg total emissions across years
       const avgEmissions =
         entries.reduce(
           (s, e) =>
-            s +
-            (e.scope1?.value ?? 0) +
-            (e.scope2_market?.value ?? 0),
+            s + (e.scope1?.value ?? 0) + (e.scope2_market?.value ?? 0),
           0
         ) / (entries.length || 1);
 
-      // Trend: % change from first to last year
       const sorted = [...entries].sort(
         (a, b) => a.reporting_year - b.reporting_year
       );
       const firstTotal =
-        (sorted[0]?.scope1?.value ?? 0) +
-        (sorted[0]?.scope2_market?.value ?? 0);
+        (sorted[0]?.scope1?.value ?? 0) + (sorted[0]?.scope2_market?.value ?? 0);
       const lastTotal =
         (sorted[sorted.length - 1]?.scope1?.value ?? 0) +
         (sorted[sorted.length - 1]?.scope2_market?.value ?? 0);
       const pctChange =
         firstTotal > 0 ? ((lastTotal - firstTotal) / firstTotal) * 100 : 0;
 
-      // Avg realism across years
+      // Credibility component: avg credibility_score normalized to 0-10
       const credEntries = entries.filter((e) => e.credibility);
-      const avgRealism =
+      const avgCredScore =
         credEntries.length > 0
-          ? credEntries.reduce(
-              (s, e) => s + e.credibility!.realism,
-              0
-            ) / credEntries.length
+          ? credEntries.reduce((s, e) => s + (e.credibility!.credibility_score ?? 1), 0) /
+            credEntries.length
           : 1;
+      const credibilityComponent = ((avgCredScore - 1) / 2) * 10;
 
-      // Assurance: count of years with assurance=true
-      const assuredYears = entries.filter((e) => e.assurance === true).length;
-      const totalYears = entries.length;
+      // Target year component
+      const targetYearComponent = targetYearToScore(netZeroTargets[company] ?? null);
 
       return {
         company,
         sector: getCompanySector(company) ?? "",
         avgEmissions,
         pctChange,
-        avgRealism,
-        assuredYears,
-        totalYears,
+        credibilityComponent,
+        targetYearComponent,
       };
     });
 
-    // Step 2: Find min/max for normalization
     const allEmissions = rawValues.map((r) => r.avgEmissions);
     const minEmissions = Math.min(...allEmissions);
     const maxEmissions = Math.max(...allEmissions);
@@ -113,17 +132,15 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
     const maxChange = Math.max(...allChanges);
     const changeRange = maxChange - minChange || 1;
 
-    // Step 3: Normalize and compute overall
     const scored: CompanyScore[] = rawValues.map((r) => {
       const emissionsScore =
         ((maxEmissions - r.avgEmissions) / emissionsRange) * 10;
       const trendScore = ((maxChange - r.pctChange) / changeRange) * 10;
-      const realismScore = ((r.avgRealism - 1) / 2) * 10;
+      const targetScore = r.credibilityComponent * 0.5 + r.targetYearComponent * 0.5;
 
       let overallScore =
-        emissionsScore * 0.2 + trendScore * 0.5 + realismScore * 0.3;
+        emissionsScore * 0.2 + trendScore * 0.5 + targetScore * 0.3;
 
-      // Amazon penalty for lacking external assurance in 2021
       const hasPenalty = r.company === "Amazon";
       if (hasPenalty) {
         overallScore = Math.max(0, overallScore - 0.5);
@@ -139,7 +156,7 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
         sector: r.sector,
         emissionsScore: Math.round(emissionsScore * 10) / 10,
         trendScore: Math.round(trendScore * 10) / 10,
-        realismScore: Math.round(realismScore * 10) / 10,
+        targetScore: Math.round(targetScore * 10) / 10,
         overallScore: Math.round(overallScore * 10) / 10,
         recommendation,
         hasPenalty,
@@ -170,7 +187,7 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
           Financing Recommendation Leaderboard
         </CardTitle>
         <CardDescription>
-          Composite scoring — Emissions 20%, Trend 50%, Realism 30%
+          Composite scoring — Emissions 20%, Trend 50%, Target 30%
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -195,7 +212,7 @@ const LeaderboardPlaceholder = ({ data }: Props) => {
                   {r.trendScore.toFixed(1)}
                 </TableCell>
                 <TableCell className="text-center">
-                  {r.realismScore.toFixed(1)}
+                  {r.targetScore.toFixed(1)}
                 </TableCell>
                 <TableCell className="text-center font-semibold">
                   {r.overallScore.toFixed(1)}{r.hasPenalty && " *"}
