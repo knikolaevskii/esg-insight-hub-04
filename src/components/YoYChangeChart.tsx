@@ -275,29 +275,14 @@ const YoYChangeChart = ({ data }: Props) => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            {/* Enhanced sector legend with trend indicators */}
-            <div className="flex items-center justify-center gap-6 mt-2 text-xs flex-wrap">
-              {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => {
-                // Calculate average trend for this sector
-                const sectorCompanies = summaries.filter((s) => s.sector === name);
-                const sectorAvg =
-                  sectorCompanies.length > 0
-                    ? sectorCompanies.reduce((sum, s) => sum + (s.avg ?? 0), 0) / sectorCompanies.length
-                    : 0;
-                const isDecreasing = sectorAvg < 0;
-
-                return (
-                  <div key={name} className="flex items-center gap-1.5">
-                    <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: cfg.colorDark }} />
-                    <span className="text-muted-foreground">{name}</span>
-                    {isDecreasing ? (
-                      <TrendingDown className="w-3.5 h-3.5 text-green-600" />
-                    ) : (
-                      <TrendingUp className="w-3.5 h-3.5 text-red-600" />
-                    )}
-                  </div>
-                );
-              })}
+            {/* Sector legend */}
+            <div className="flex items-center justify-center gap-6 mt-2 text-xs text-muted-foreground flex-wrap">
+              {Object.entries(SECTOR_CONFIG).map(([name, cfg]) => (
+                <div key={name} className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: cfg.colorDark }} />
+                  {name}
+                </div>
+              ))}
             </div>
           </div>
 
@@ -307,15 +292,14 @@ const YoYChangeChart = ({ data }: Props) => {
               <TableHeader>
                 <TableRow>
                   <TableHead className="text-xs">Company</TableHead>
-                  <TableHead className="text-xs">Sector</TableHead>
                   <TableHead className="text-xs text-right">Avg Change</TableHead>
+                  <TableHead className="text-xs text-center">Trend</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {summaries.map((s) => (
                   <TableRow key={s.company}>
                     <TableCell className="py-2 text-xs font-medium">{s.company}</TableCell>
-                    <TableCell className="py-2 text-xs text-muted-foreground">{s.sector}</TableCell>
                     <TableCell className="py-2 text-xs text-right font-mono">
                       {s.avg !== null ? (
                         <span
@@ -329,6 +313,14 @@ const YoYChangeChart = ({ data }: Props) => {
                       ) : (
                         "—"
                       )}
+                    </TableCell>
+                    <TableCell className="py-2 text-center">
+                      {s.avg !== null &&
+                        (s.avg < 0 ? (
+                          <TrendingDown className="w-4 h-4 text-green-600 inline-block" />
+                        ) : (
+                          <TrendingUp className="w-4 h-4 text-red-600 inline-block" />
+                        ))}
                     </TableCell>
                   </TableRow>
                 ))}
